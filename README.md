@@ -9,6 +9,7 @@ pip install -r requirements.txt
 ```
 
 ## Configuration
+
 `config.json`
 
 ```json
@@ -28,6 +29,8 @@ pip install -r requirements.txt
 ```
 
 ## Subscribers list
+
+`subscribers.txt`
 
 ```txt
 mail@example.com
