@@ -1,0 +1,30 @@
+blockquote {
+  margin: 0;
+  padding-left: .8rem;
+  border-left: .25rem solid #ccc;
+}
+
+h3 {
+  margin-top: -.5rem;
+  opacity: .85;
+  font-size: .8em;
+}
+
+a {
+  color: currentcolor;
+}
+
+ul {
+  padding-left: 1.5rem;
+}
+
+hr {
+  margin: 2rem 0;
+  border: none;
+  border-top: 2px solid #EEEEEE;
+}
+
+img {
+  max-width: 100%;
+  border-radius: .4rem;
+}
