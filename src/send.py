@@ -32,10 +32,16 @@ if do_send:
         server.login(sender_email, password)
 
         with open("subscribers.txt", "r", encoding="utf-8") as subscribers_file:
-            for subscriber in subscribers_file.readlines():
-                mail = subscriber.strip()
-                message["To"] = mail
+            subscribers = list(subscribers_file.readlines())
 
-                server.sendmail(sender_email, mail, message.as_string())
+        i = 1
+        for subscriber in subscribers:
+            mail = subscriber.strip()
+            message["To"] = mail
+
+            print(f"Enviando mensagem {i} de {len(subscribers)}...")
+            i += 1
+
+            server.sendmail(sender_email, mail, message.as_string())
 
     print("Newsletter disparada com sucesso!")
