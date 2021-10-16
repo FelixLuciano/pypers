@@ -1,47 +1,76 @@
-import json
+from build import get_config, build
 from getpass import getpass
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-import build
-import helper
 
-with open("config.json", "r", encoding="utf-8") as config_file:
-    config = json.load(config_file)
-  
-do_send = helper.valid_input(str, "Deseja disparar os e-mails? (s/n) ", ("S", "SIM"), persist=False, apply=str.upper)
-
-if do_send:
-    password = getpass("Insira a senha da conta de envio:")
-    sender_email = config["email"]["address"]
-
+def get_message(config = get_config()):
+    mail_html, mail_text, meta = build(config, True)
+    print(meta)
     message = MIMEMultipart("alternative")
-    message["Subject"] = config["news"]["subject"]
-    message["From"] = config["news"]['name']
+    message["Subject"] = meta["subject"]
+    message["From"] = meta["name"]
 
-    part1 = MIMEText(build.mail_text, "text")
-    part2 = MIMEText(build.mail_html, "html")
+    part1 = MIMEText(mail_text, "text")
+    part2 = MIMEText(mail_html, "html")
 
     message.attach(part1)
     message.attach(part2)
 
+    return message
+
+
+def get_subscribers():
+    with open("subscribers.txt", "r", encoding="utf-8") as subscribers_file:
+        subscribers = list(subscribers_file.readlines())
+
+    return subscribers
+
+
+def dispatch_message(server, sender_email, message):
+    subscribers = get_subscribers()
+    size = len(subscribers)
+    index = 1
+
+    for subscriber in subscribers:
+        reciver_mail = subscriber.strip()
+        message["To"] = reciver_mail
+
+        print(f"Sending {index} of {size}...")
+        server.sendmail(sender_email, reciver_mail, message.as_string())
+
+        index += 1
+
+
+def get_smtp_server(config = get_config()):
+    smtp = config["email"]["smtp"]
     context = ssl.create_default_context()
+    smtp_server = smtplib.SMTP_SSL(smtp, 465, context=context)
+    sender_email = config["email"]["address"]
+    password = getpass("E-mail password:")
 
-    with smtplib.SMTP_SSL(config["email"]["smtp"], 465, context=context) as server:
-        server.login(sender_email, password)
+    smtp_server.login(sender_email, password)
+    print("Login successfully!")
 
-        with open("subscribers.txt", "r", encoding="utf-8") as subscribers_file:
-            subscribers = list(subscribers_file.readlines())
+    return smtp_server
 
-        i = 1
-        for subscriber in subscribers:
-            mail = subscriber.strip()
-            message["To"] = mail
 
-            print(f"Enviando mensagem {i} de {len(subscribers)}...")
-            i += 1
+def send(message, config = get_config()):
+    smtp_server = get_smtp_server(config)
+    sender_email = config["email"]["address"]
 
-            server.sendmail(sender_email, mail, message.as_string())
+    with smtp_server as server:
+        dispatch_message(server, sender_email, message)
 
-    print("Newsletter disparada com sucesso!")
+    print("Newsletter launched successfully!")
+
+
+if __name__ == "__main__":
+    config = get_config()
+    message = get_message(config)
+
+    do_send = input("Send? (y/n) ")
+
+    if do_send.lower() in ("y", "yes"):
+        send(message, config)

@@ -18,10 +18,6 @@ pip install -r requirements.txt
     "address": "mail@example.com",
     "smtp": "smtp.gmail.com"
   },
-  "news": {
-    "name": "📰 News",
-    "subject": "News of the week"
-  },
   "template": {
     "author": "John Doe"
   }

@@ -1,48 +1,54 @@
-# Frase de efeito
+name:    📰 News
+subject: News of the week
 
-bom dia. a semana está no fim, mas ainda tem muitos prazos pra cumprir? respira e vai, você vai conseguir fazer tudo. fé no café, sem açúcar.
+# Lorem ipsum dolor sit amet
 
-> Confira nosso Instagram [@insta](https://instagram.com)!
+consectetur adipiscing elit. Cras in massa accumsan tortor auctor facilisis a eget ligula. Sed mollis eleifend mi vel semper. Phasellus congue, orci tristique porta ultricies, elit neque iaculis magna, sed gravida magna mi sit amet magna.
 
-## 🗞️ Aenean enim est, iaculis nec dui at, mattis cursus velit
-### ECONOMIA
+> Sed vitae leo sollicitudin urna tincidunt dictum. Maecenas eget posuere dui. Duis orci felis, vulputate nec fermentum eget, venenatis eu arcu. In aliquet vehicula turpis sed iaculis.
 
-Suspendisse ac dolor sed lectus malesuada aliquet. Etiam sit amet magna lectus. Donec rhoncus blandit vestibulum. Proin sed magna non quam blandit hendrerit eu ut quam. Ut aliquet dapibus risus, eget lacinia dolor ornare vel. Vivamus iaculis eros non neque aliquet, eu scelerisque leo mattis. In non lectus fermentum quam tincidunt eleifend. Donec nec nibh ultricies, posuere ipsum vitae, dapibus erat. Quisque vehicula varius augue, eu maximus ligula lobortis iaculis. Nam id purus ut est euismod laoreet ac ac risus. Donec sem urna, efficitur eget malesuada sit amet, suscipit eget orci.
+## 🗞️ Morbi gravida mi ac purus accumsan, non venenatis nisl rutrum
+**ECONOMICS**
 
-Fonte: [News](https://example.com).
+Pellentesque massa nisi, laoreet vitae placerat ac, ultricies eget elit. Sed facilisis, neque a vehicula tempus, diam nibh tincidunt arcu, in mollis purus neque id sem. Aenean sit amet ante tellus. Vivamus consequat nibh quis egestas tristique. Cras commodo nulla sed tellus congue, eu feugiat enim varius.
 
-## 🗞️ Mauris pulvinar id ante porttitor pulvinar
-### POLITICA
+Proin nulla arcu, eleifend eget magna et, pulvinar aliquam justo. Vivamus accumsan fermentum velit, ut ultricies risus. Sed rhoncus dapibus nulla, nec pulvinar lorem maximus in. Aliquam rutrum, tortor ac ullamcorper aliquam, ante urna ornare enim, sed eleifend ex nibh quis eros. Ut vitae luctus orci. Duis sollicitudin augue ipsum. Curabitur scelerisque mi nibh, at porttitor ligula tincidunt ut.
 
-![Imagem exemplo](https://images.unsplash.com/photo-1495020689067-958852a7765e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2069&q=80)
+Font: [News](https://example.com).
 
-Pellentesque consequat, libero sit amet pellentesque commodo, dolor enim aliquam risus, quis molestie sapien neque eu tortor. Cras maximus congue arcu vel dapibus. Nulla sed aliquam ligula. Vivamus luctus facilisis ullamcorper. Duis nunc arcu, finibus eget metus id, volutpat hendrerit diam. Donec diam nisl, luctus eget tincidunt id, tincidunt nec mauris. Sed dapibus aliquet libero mattis imperdiet. 
+## 🗞️ In metus est, sodales sit amet tellus id, fringilla gravida lorem
+**POLITICS**
 
-- Suspendisse a magna in urna lobortis laoreet non ac odio. 
-- Aliquam ut urna arcu. 
-- Donec tincidunt sapien augue, gravida cursus tortor blandit a. 
-- Sed vitae enim nec lorem malesuada tincidunt. 
-- Integer tincidunt libero vitae magna posuere gravida.
+![example image](https://images.unsplash.com/photo-1495020689067-958852a7765e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2069&q=80)
 
-Phasellus fermentum ex urna, ut scelerisque lectus eleifend ac. Vestibulum vel eros in urna facilisis vestibulum nec ut arcu.
+Mauris volutpat pulvinar nunc, a mattis ex vehicula ac. Pellentesque molestie erat quis lacus porttitor, quis malesuada elit commodo. Mauris vehicula aliquam ligula at consequat. Sed pharetra dolor urna, posuere congue lorem porta a. In hac habitasse platea dictumst. 
 
-Fonte: [News](https://example.com).
+- Vestibulum non luctus lacus.
+- Cras volutpat dictum semper.
+- Nam fringilla malesuada cursus.
+- Nam faucibus lectus sit amet ante laoreet consequat.
+- Fusce ut enim nunc.
+- Nam quis malesuada enim.
 
-## 🗞️ In hac habitasse platea dictumst
-### CLIMA
+Nulla facilisi. Suspendisse finibus vehicula condimentum.
 
-DAliquam elementum sapien lobortis ligula faucibus iaculis. Pellentesque aliquam quam erat, sed fringilla massa fringilla in. Mauris quam turpis, porta eget eleifend et, varius at ligula. Nullam ac orci metus. In auctor finibus augue placerat tristique. Sed in consectetur ante. Vestibulum eget mauris ipsum. Phasellus gravida placerat velit, vel iaculis dui malesuada non. Maecenas varius eros sapien, et tincidunt magna euismod non. In justo augue, auctor quis enim id, luctus porttitor felis.
+Font: [News](https://example.com).
 
-Fonte: [News](https://example.com).
+## 🗞️ Curabitur ac ligula facilisis, gravida enim in, eleifend purus
+**CLIMATE**
 
-# até amanhã!
+Quisque imperdiet vel nisi ac tincidunt. Suspendisse felis nibh, finibus vitae luctus quis, cursus nec ligula. Duis venenatis, lectus in pulvinar venenatis, magna massa pulvinar mauris, nec luctus urna magna et sem. Aenean luctus, urna sed eleifend bibendum, augue augue semper augue, non sodales sem ante sed nulla. Vestibulum pellentesque finibus neque, a gravida massa sagittis eu. Praesent fringilla libero sed orci dapibus egestas vehicula vitae leo. Maecenas magna ex, ultricies at aliquam eget, pharetra aliquet arcu. Cras vulputate enim non libero auctor consequat. Suspendisse vulputate interdum sem, a vehicula dui viverra sit amet. Mauris rutrum tincidunt risus eu consequat. Nunc orci ante, eleifend sit amet libero ac, tristique cursus lorem. Cras quis elit nunc.
 
-Sempre chegamos a sua caixa de entrada por volta das 06:06. **Alguns servidores de e-mail são teimosos e atrasam… Outros são piores ainda e nos jogam para o spam e/ ou promoções. Sempre que não nos encontrar na caixa de entrada, procure nessas duas.**
+Font: [News](https://example.com).
+
+# To the next! 👋
+
+We always arrive at your inbox around 06:06. **Some email servers are stubborn and slow… Others are even worse and throw us into spam and/or promotions. Whenever you can't find us in your inbox, look in these two.**
 
 ---
 
-*{author}, {day} de {month} de {year}.*
+*{author}, {day}/{month}/{year}.*
 
 {org}
 <br />
-Para cancelar sua assinatura á nossa newsletter entre em contato conosco pelo whatsapp: [(11) 91234-5678](https://api.whatsapp.com/send?phone=55912345678).
+To cancel your subscription to our newsletter, contact us: [(11) 91234-5678](https://api.whatsapp.com/send?phone=55912345678).
