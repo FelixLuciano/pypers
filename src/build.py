@@ -119,29 +119,31 @@ def save_output(filename, data):
         file.write(data)
 
 
-def build_html(config):
+def build_html(config, save = False):
     mail_html, meta = get_mail_html(config)
 
-    save_output("dist/output.html", mail_html)
+    if save:
+        save_output("build/output.html", mail_html)
 
     return mail_html, meta
 
 
-def build_text(html):
+def build_text(html, save = False):
     mail_text = extract_html_text(html)
 
-    save_output("dist/output.txt", mail_text)
+    if save:
+        save_output("build/output.txt", mail_text)
 
     return mail_text
 
 
 def build(config, open_preview = False):
-    mail_html, meta = build_html(config)
+    mail_html, meta = build_html(config, open_preview)
     mail_text = build_text(mail_html)
 
     if open_preview:
         print("Abrindo visualização prévia...")
-        webbrowser.open(os.path.abspath("dist/output.html"))
+        webbrowser.open(os.path.abspath("build/output.html"))
 
     return mail_html, mail_text, meta
 
