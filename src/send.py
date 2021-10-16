@@ -5,9 +5,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 
-def get_message(config = get_config()):
+def get_message(config):
     mail_html, mail_text, meta = build(config, True)
-    print(meta)
+    
     message = MIMEMultipart("alternative")
     message["Subject"] = meta["subject"]
     message["From"] = meta["name"]
@@ -43,7 +43,7 @@ def dispatch_message(server, sender_email, message):
         index += 1
 
 
-def get_smtp_server(config = get_config()):
+def get_smtp_server(config):
     smtp = config["email"]["smtp"]
     context = ssl.create_default_context()
     smtp_server = smtplib.SMTP_SSL(smtp, 465, context=context)
@@ -56,7 +56,7 @@ def get_smtp_server(config = get_config()):
     return smtp_server
 
 
-def send(message, config = get_config()):
+def send(message, config):
     smtp_server = get_smtp_server(config)
     sender_email = config["email"]["address"]
 
