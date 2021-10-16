@@ -47,7 +47,7 @@ We always arrive at your inbox around 06:06. **Some email servers are stubborn a
 
 ---
 
-*{author}, {day}/{month}/{year}.*
+*{author}, {day} de {month} de {year}.*
 
 {org}
 <br />
