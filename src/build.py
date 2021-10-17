@@ -1,40 +1,76 @@
 import os
-import re
 import json
 import datetime
 import markdown
 import webbrowser
 
+from html.parser import HTMLParser
+
 
 MARKDOWN_EXTENSIONS = ["meta", "attr_list"]
 
 
-def get_css():
-    with open("src/page/style.css", "r", encoding="utf-8") as css_file:
-        css_rules = css_file.read()
+def get_style_rules():
+    with open("src/page/styles.json", "r", encoding="utf-8") as styles_file:
+        styles_rules = json.load(styles_file)
 
-    return css_rules
+    for selector, rules in styles_rules.items():
+        rules_str = ""
+
+        for prop, value in rules.items():
+            rules_str += f"{prop}:{value};"
+
+        styles_rules[selector] = rules_str
+
+    return styles_rules
 
 
-def get_css_rules(css):
-    re_match = r"(?:\w+)|(?:(?<={)[^{}]+(?=}))"
-    re_sub = r"[\s\n]+"
-    matches = re.findall(re_match, css, re.MULTILINE | re.DOTALL)
-    matches_formated = [re.sub(re_sub, " ", match, 0).strip() for match in matches]
-    selector_rules = zip(matches_formated[::2], matches_formated[1::2])
+class StyleRulesParser(HTMLParser):
+    def __init__(self, styles_rules):
+        super().__init__()
+        
+        self._selfclosing_tags = ("area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr")
+        self._styles_rules = styles_rules
+        self._html = ""
 
-    return selector_rules
+    def handle_starttag(self, tag, attrs):
+        if tag in self._styles_rules:
+            rules = self._styles_rules[tag]
+            
+            for i, (attr, value) in enumerate(attrs):
+                if attr == "style":
+                    rules += value
+                    del attrs[i]
+                    break
+
+            attrs.append(("style", rules))
+
+        self._html += f"<{tag}"
+
+        for attr, value in attrs:
+            self._html += f" {attr}=\"{value}\""
+
+        if tag in self._selfclosing_tags:
+            self._html += " /"
+
+        self._html += ">"
+
+    def handle_endtag(self, tag):
+        if tag not in self._selfclosing_tags:
+            self._html += f"</{tag}>"
+
+    def handle_data(self, data):
+        self._html += data
+
+    def to_string(self):
+        return self._html
 
 
 def apply_css_rules(html, rules):
-    new_html = str(html)
+    parser = StyleRulesParser(rules)
+    parser.feed(html)
 
-    for selector, rule in rules:
-        stf_sub = f"(?<=<{selector}).*(?=>.*?</{selector}>)|(?<=<{selector}).*(?=>)"
-        re_sub = re.compile(stf_sub, re.MULTILINE)
-        subst = f" style=\"{rule}\"\\g<0>"
-        new_html = re.sub(re_sub, subst, new_html, 0)
-    return new_html
+    return parser.to_string()
 
 
 def get_meta(meta_dict):
@@ -54,9 +90,8 @@ def get_mail_content():
     html_content = md.convert(md_content)
     meta = get_meta(md.Meta)
 
-    css = get_css()
-    css_rules = get_css_rules(css)
-    styled_content = apply_css_rules(html_content, css_rules)
+    styles_rules = get_style_rules()
+    styled_content = apply_css_rules(html_content, styles_rules)
 
     return styled_content, meta
 
