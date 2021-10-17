@@ -37,12 +37,12 @@ othermail@example.com
 ## Build for preview
 
 ```bash
-$ python src/build.py
+$ python scripts/build.py
 ```
 
 
 ## Send newsletter
 
 ```bash
-$ python src/send.py
+$ python scripts/send.py
 ```
