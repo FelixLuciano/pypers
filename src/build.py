@@ -6,6 +6,9 @@ import markdown
 import webbrowser
 
 
+MARKDOWN_EXTENSIONS = ["meta", "attr_list"]
+
+
 def get_css():
     with open("src/page/style.css", "r", encoding="utf-8") as css_file:
         css_rules = css_file.read()
@@ -47,7 +50,7 @@ def get_mail_content():
     with open("src/page/news.md", "r", encoding="utf-8") as md_file:
         md_content = md_file.read()
 
-    md = markdown.Markdown(extensions=["meta"])
+    md = markdown.Markdown(extensions=MARKDOWN_EXTENSIONS)
     html_content = md.convert(md_content)
     meta = get_meta(md.Meta)
 
