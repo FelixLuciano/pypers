@@ -137,14 +137,29 @@ def get_mail_html (config):
     return mail_html, meta
 
 
+class InnerText_Parser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        
+        self._blockLevel_tags = ("address", "article", "aside", "blockquote", "canvas", "dd", "div", "dl", "dt", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hr", "li", "main", "nav", "noscript", "ol", "p", "pre", "section", "table", "tfoot", "ul", "video")
+        self._text = ""
+
+    def handle_endtag(self, tag):
+        if tag in self._blockLevel_tags:
+            self._text += "\n"
+
+    def handle_data(self, data):
+        self._text += data
+
+    def to_string(self):
+        return self._text
+
+
 def extract_html_text(html):
-    re_sub_tags = r"<.*?>"
-    re_sub_nl = r"\n+"
+    parser = InnerText_Parser()
+    parser.feed(html)
 
-    text = re.sub(re_sub_tags, "", html, 0)
-    clear = re.sub(re_sub_nl, "\n\n", text, 0).strip("\n")
-
-    return clear
+    return parser.to_string()
 
 
 def save_output(filename, data):
