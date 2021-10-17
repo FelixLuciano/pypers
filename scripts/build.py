@@ -11,7 +11,7 @@ MARKDOWN_EXTENSIONS = ["meta", "attr_list"]
 
 
 def get_style_rules():
-    with open("src/page/styles.json", "r", encoding="utf-8") as styles_file:
+    with open("src/styles.json", "r", encoding="utf-8") as styles_file:
         styles_rules = json.load(styles_file)
 
     for selector, rules in styles_rules.items():
@@ -83,7 +83,7 @@ def get_meta(meta_dict):
 
 
 def get_mail_content():
-    with open("src/page/news.md", "r", encoding="utf-8") as md_file:
+    with open("src/news.md", "r", encoding="utf-8") as md_file:
         md_content = md_file.read()
 
     md = markdown.Markdown(extensions=MARKDOWN_EXTENSIONS)
@@ -97,7 +97,7 @@ def get_mail_content():
 
 
 def get_template():
-    with open("src/page/template.html", "r", encoding="utf-8") as html_file:
+    with open("src/template.html", "r", encoding="utf-8") as html_file:
         html_template = html_file.read()
 
     return html_template
