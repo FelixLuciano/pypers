@@ -5,6 +5,8 @@ import datetime
 import markdown
 import webbrowser
 
+from html.parser import HTMLParser
+
 
 MARKDOWN_EXTENSIONS = ["meta", "attr_list"]
 
@@ -22,19 +24,57 @@ def get_css_rules(css):
     matches = re.findall(re_match, css, re.MULTILINE | re.DOTALL)
     matches_formated = [re.sub(re_sub, " ", match, 0).strip() for match in matches]
     selector_rules = zip(matches_formated[::2], matches_formated[1::2])
+    css_rules = dict(selector_rules)
 
-    return selector_rules
+    return css_rules
+
+
+class CSSRulesParser(HTMLParser):
+    def __init__(self, css_rules):
+        super().__init__()
+
+        self._selfclosing_tags = ("area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr")
+        self._css_rules = css_rules
+        self._html = ""
+
+    def handle_starttag(self, tag, attrs):
+        if tag in self._css_rules:
+            rules = self._css_rules[tag]
+
+            for i, (attr, value) in enumerate(attrs):
+                if attr == "style":
+                    rules += value
+                    del attrs[i]
+                    break
+
+            attrs.append(("style", rules))
+
+        self._html += f"<{tag}"
+
+        for attr, value in attrs:
+            self._html += f" {attr}=\"{value}\""
+
+        if tag in self._selfclosing_tags:
+            self._html += " /"
+
+        self._html += ">"
+
+    def handle_endtag(self, tag):
+        if tag not in self._selfclosing_tags:
+            self._html += f"</{tag}>"
+
+    def handle_data(self, data):
+        self._html += data
+
+    def to_string(self):
+        return self._html
 
 
 def apply_css_rules(html, rules):
-    new_html = str(html)
+    parser = CSSRulesParser(rules)
+    parser.feed(html)
 
-    for selector, rule in rules:
-        stf_sub = f"(?<=<{selector}).*(?=>.*?</{selector}>)|(?<=<{selector}).*(?=>)"
-        re_sub = re.compile(stf_sub, re.MULTILINE)
-        subst = f" style=\"{rule}\"\\g<0>"
-        new_html = re.sub(re_sub, subst, new_html, 0)
-    return new_html
+    return parser.to_string()
 
 
 def get_meta(meta_dict):
