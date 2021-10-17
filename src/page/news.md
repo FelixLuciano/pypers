@@ -52,12 +52,8 @@ We always arrive at your inbox around 06:09. **Some email servers are stubborn a
 *{author}, {day} de {month} de {year}.*
 {: style="text-align: right;" }
 
-{org}, Simple python newsletter project.
-<br />
+{org}, Simple python newsletter project.  
 3477 Av. Brg. Faria Lima, São Paulo - SP, 04538-133
-{: style="text-align: center;" }
-
-[Unsubscribe](https://example.com)
-|
-[Contact us](https://api.whatsapp.com/send?phone=55912345678)
+<br /><br />
+[Unsubscribe](https://example.com) | [Contact us](https://api.whatsapp.com/send?phone=55912345678)
 {: style="text-align: center;" }
