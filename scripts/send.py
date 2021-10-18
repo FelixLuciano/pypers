@@ -45,8 +45,9 @@ def dispatch_message(server, sender_email, message):
 
 def get_smtp_server(config):
     smtp = config["transport"]["smtp"]
+    port = config["transport"]["port"]
     context = ssl.create_default_context()
-    smtp_server = smtplib.SMTP_SSL(smtp, 465, context=context)
+    smtp_server = smtplib.SMTP_SSL(smtp, port, context=context)
     sender_email = config["transport"]["mail"]
     password = getpass("E-mail password:")
 
