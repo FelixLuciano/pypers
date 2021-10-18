@@ -22,7 +22,7 @@ The `config.json` (at project root) file contains essential  definitions be for 
   "transport": {
     "mail": "mail@example.com",
     "smtp": "smtp.gmail.com",
-    "port": 456
+    "port": 465
   },
   "props": {
     "author": "John Doe"
