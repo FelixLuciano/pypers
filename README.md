@@ -1,6 +1,9 @@
-# 📰 PyNews
+<h1 align="center">📰 PyNews</h1>
+<p align="center">
+  Simple python newsletter project
+</p>
 
-Simple python newsletter project
+![Page example](assets/page.webp)
 
 ## Install dependencies
 
@@ -38,6 +41,7 @@ othermail@example.com
 
 ```bash
 $ python scripts/build.py
+> Opening preview...
 ```
 
 
@@ -45,4 +49,14 @@ $ python scripts/build.py
 
 ```bash
 $ python scripts/send.py
+> Opening preview...
+> Send? (yes/no) yes
+> E-mail password:
+> Login successfully!
+> Sending 1 of 32...
+...
+> Newsletter launched successfully!
 ```
+
+## License
+This project is [MIT licensed](https://github.com/FelixLuciano/PyNews/blob/main/LICENSE).
