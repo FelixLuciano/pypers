@@ -195,7 +195,7 @@ def build(config, open_preview = False):
     mail_text = build_text(mail_html)
 
     if open_preview:
-        print("Abrindo visualização prévia...")
+        print("Opening preview...")
         webbrowser.open(os.path.abspath("build/output.html"))
 
     return mail_html, mail_text, meta
