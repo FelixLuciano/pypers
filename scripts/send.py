@@ -44,10 +44,10 @@ def dispatch_message(server, sender_email, message):
 
 
 def get_smtp_server(config):
-    smtp = config["email"]["smtp"]
+    smtp = config["transport"]["smtp"]
     context = ssl.create_default_context()
     smtp_server = smtplib.SMTP_SSL(smtp, 465, context=context)
-    sender_email = config["email"]["address"]
+    sender_email = config["transport"]["mail"]
     password = getpass("E-mail password:")
 
     smtp_server.login(sender_email, password)
@@ -58,7 +58,7 @@ def get_smtp_server(config):
 
 def send(message, config):
     smtp_server = get_smtp_server(config)
-    sender_email = config["email"]["address"]
+    sender_email = config["transport"]["mail"]
 
     with smtp_server as server:
         dispatch_message(server, sender_email, message)
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     config = get_config()
     message = get_message(config)
 
-    do_send = input("Send? (y/n) ")
+    do_send = input("Send? (yes/no) ")
 
     if do_send.lower() in ("y", "yes"):
         send(message, config)

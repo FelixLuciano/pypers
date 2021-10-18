@@ -119,7 +119,7 @@ def get_template_data(config, meta):
         "day": day,
         "month": month,
         "year": year,
-        **config["template"],
+        **config["props"],
         **meta
     }
 

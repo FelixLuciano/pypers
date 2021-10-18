@@ -14,11 +14,11 @@ pip install -r requirements.txt
 
 ```json
 {
-  "email": {
-    "address": "mail@example.com",
+  "transport": {
+    "mail": "mail@example.com",
     "smtp": "smtp.gmail.com"
   },
-  "template": {
+  "props": {
     "author": "John Doe"
   }
 }
