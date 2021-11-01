@@ -11,7 +11,7 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-from build import build_feed, build_test, get_config
+from build import build_html, build_test, get_config
 
 
 SCOPES = [
@@ -68,14 +68,17 @@ def split_date_iso(date):
     return d[2], d[1], d[0], d[3], d[4], d[5] # YYYY, MM, DD, hh, mm, ss
 
 
-def get_timestamp(object, config):
-    date_key = config["sheet"]["columns"]["date"]
+def get_col(key, config):
+    return config["sheet"]["columns"][key]
 
-    return datetime(*split_date_iso(object[date_key])).timestamp()
+def get_timestamp(object, config):
+    date = get_col(object, "date", config)
+
+    return datetime(*split_date_iso(object[date])).timestamp()
 
 
 def filter_mailing_list(subs, unsubs, config):
-    mail_key = config["sheet"]["columns"]["mail"]
+    mail_key = get_col("mail", config)
     mailing_list = []
 
     for sub in subs[::-1]:
@@ -110,17 +113,15 @@ def build_message(user, config):
     for key, value in user.items():
         user_config["props"][f"user_{key}"] = value
 
-    mail_html, mail_text, meta = build_feed(user_config)
+    mail_html, meta = build_html(user_config)
 
-    message = MIMEMultipart("alternative")
-    message["to"] = user[config["sheet"]["columns"]["mail"]]
-    message["From"] = meta["name"]
+    message = MIMEMultipart()
+    message["to"] = user[get_col("mail", config)]
+    # message["from"] = f"{meta['name']} <felixluciano.200@gmail.com>"
     message["subject"] = meta["subject"]
 
-    text_mime = MIMEText(mail_text, "text")
     html_mime = MIMEText(mail_html, "html")
 
-    message.attach(text_mime)
     message.attach(html_mime)
 
     return {"raw": urlsafe_b64encode(message.as_bytes()).decode()}
@@ -133,7 +134,7 @@ def dispatch_messages(mailing_list, credentials, config, quiet=False):
     with build("gmail", "v1", credentials=credentials) as service:
         for user in mailing_list:
             message = build_message(user, config)
-            username = user[config["sheet"]["columns"]["name"]]
+            username = user[get_col("name", config)]
             response = service.users().messages().send(userId="me", body=message).execute()
 
             if not quiet:
