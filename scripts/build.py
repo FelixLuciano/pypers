@@ -149,31 +149,6 @@ def get_mail_html (config):
     return styled_html, meta
 
 
-class InnerText_Parser(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        
-        self._blockLevel_tags = ("address", "article", "aside", "blockquote", "canvas", "dd", "div", "dl", "dt", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "header", "hr", "li", "main", "nav", "noscript", "ol", "p", "pre", "section", "table", "tfoot", "ul", "video")
-        self._text = ""
-
-    def handle_endtag(self, tag):
-        if tag in self._blockLevel_tags:
-            self._text += "\n"
-
-    def handle_data(self, data):
-        self._text += data
-
-    def to_string(self):
-        return self._text
-
-
-def extract_html_text(html):
-    parser = InnerText_Parser()
-    parser.feed(html)
-
-    return parser.to_string()
-
-
 def preview_output(output):
     fd, path = tempfile.mkstemp(suffix=".html")
     
@@ -193,13 +168,6 @@ def build_html(config, preview=False):
     return mail_html, meta
 
 
-def build_feed(config, preview=False):
-    mail_html, meta = build_html(config, preview)
-    mail_text = extract_html_text(mail_html)
-
-    return mail_html, mail_text, meta
-
-
 def get_config():
     with open("config.json", "r", encoding="utf-8") as config_file:
         config = json.load(config_file)
@@ -211,7 +179,7 @@ def build_test(config):
     for key, value in config["test_user"].items():
         config["props"][f"user_{key}"] = value
 
-    build_feed(config, True)
+    build_html(config, True)
 
 
 if __name__ == "__main__":
