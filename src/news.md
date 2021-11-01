@@ -1,7 +1,7 @@
 name:    PyNews 📰
 subject: News of the week
 
-# **Lorem ipsum dolor sit amet, {user_Nome}!**
+# **Lorem ipsum dolor sit amet**
 
 consectetur adipiscing elit. Cras in massa accumsan tortor auctor facilisis a eget ligula. Sed mollis eleifend mi vel semper. Phasellus congue, orci tristique porta ultricies, elit neque iaculis magna, sed gravida magna mi sit amet magna.
 
@@ -43,7 +43,7 @@ Quisque imperdiet vel nisi ac tincidunt. Suspendisse felis nibh, finibus vitae l
 
 Font: [News](https://example.com).
 
-# **To the next! 👋**
+# **To the next, {user_Nome}! 👋**
 
 We always arrive at your inbox around 06:09. **Some email servers are stubborn and slow… Others are even worse and throw us into spam and/or promotions. Whenever you can't find us in your inbox, look in these two.**
 
@@ -55,5 +55,5 @@ We always arrive at your inbox around 06:09. **Some email servers are stubborn a
 {org}, Simple python newsletter project.  
 3477 Av. Brig. Faria Lima, São Paulo - SP, 04538-133
 <br /><br />
-[Unsubscribe](https://example.com) | [Contact us](https://api.whatsapp.com/send?phone=55912345678)
+[Unsubscribe]({unsubscribe_link}{user_e-mail}) | [Contact us](https://api.whatsapp.com/send?phone=55912345678)
 {: style="text-align: center;" }
