@@ -190,7 +190,7 @@ def build_text(html, save = False):
     return mail_text
 
 
-def build(config, open_preview = False):
+def build_feed(config, open_preview = False):
     mail_html, meta = build_html(config, open_preview)
     mail_text = build_text(mail_html)
 
@@ -208,6 +208,14 @@ def get_config():
     return config
 
 
-if __name__ == "__main__":
+def build_test():
     config = get_config()
-    build(config, True)
+
+    for key, value in config["test_user"].items():
+        config["props"][f"user_{key}"] = value
+
+    build_feed(config, True)
+
+
+if __name__ == "__main__":
+    build_test()
