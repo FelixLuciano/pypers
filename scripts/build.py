@@ -1,6 +1,7 @@
 import datetime
 import json
 import os
+import tempfile
 import webbrowser
 from html.parser import HTMLParser
 
@@ -161,41 +162,28 @@ def extract_html_text(html):
     return parser.to_string()
 
 
-def save_output(filename, data):
-    dirname = os.path.dirname(filename)
+def preview_output(output):
+    fd, path = tempfile.mkstemp(suffix=".html")
+    
+    with os.fdopen(fd, "w", encoding="utf-8") as temp:
+        temp.write(output)
 
-    if not os.path.exists(dirname):
-        os.makedirs(dirname)
-
-    with open(filename, "w", encoding="utf-8") as file:
-        file.write(data)
+    print("Opening preview...")
+    webbrowser.open(path)
 
 
-def build_html(config, save = False):
+def build_html(config, preview=False):
     mail_html, meta = get_mail_html(config)
 
-    if save:
-        save_output("build/output.html", mail_html)
+    if preview:
+        preview_output(mail_html)
 
     return mail_html, meta
 
 
-def build_text(html, save = False):
-    mail_text = extract_html_text(html)
-
-    if save:
-        save_output("build/output.txt", mail_text)
-
-    return mail_text
-
-
-def build_feed(config, open_preview = False):
-    mail_html, meta = build_html(config, open_preview)
-    mail_text = build_text(mail_html)
-
-    if open_preview:
-        print("Opening preview...")
-        webbrowser.open(os.path.abspath("build/output.html"))
+def build_feed(config, preview=False):
+    mail_html, meta = build_html(config, preview)
+    mail_text = extract_html_text(mail_html)
 
     return mail_html, mail_text, meta
 
