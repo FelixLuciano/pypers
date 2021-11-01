@@ -1,11 +1,10 @@
-import os
-import json
 import datetime
-import markdown
+import json
+import os
 import webbrowser
-
 from html.parser import HTMLParser
 
+import markdown
 
 MARKDOWN_EXTENSIONS = ["meta", "attr_list"]
 
