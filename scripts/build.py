@@ -195,9 +195,7 @@ def get_config():
     return config
 
 
-def build_test():
-    config = get_config()
-
+def build_test(config):
     for key, value in config["test_user"].items():
         config["props"][f"user_{key}"] = value
 
@@ -205,4 +203,6 @@ def build_test():
 
 
 if __name__ == "__main__":
-    build_test()
+    config = get_config()
+    
+    build_test(config)
