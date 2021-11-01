@@ -34,16 +34,28 @@ class StyleRulesParser(HTMLParser):
         self._html = ""
 
     def handle_starttag(self, tag, attrs):
-        if tag in self._styles_rules:
-            rules = self._styles_rules[tag]
-            
-            for i, (attr, value) in enumerate(attrs):
-                if attr == "style":
-                    rules += value
-                    del attrs[i]
-                    break
+        rules = []
 
-            attrs.append(("style", rules))
+        if tag in self._styles_rules:
+            rules.append(self._styles_rules[tag])
+        
+        for i, (attr, value) in enumerate(attrs):
+            if attr == "style":
+                rules.append(value)
+                del attrs[i]
+                continue
+
+            elif attr == "class":
+                for classe in value.split(" "):
+                    selector = "." + classe
+
+                    if selector in self._styles_rules:
+                        rules.append(self._styles_rules[selector])
+
+                del attrs[i]
+                continue
+
+        attrs.append(("style", "".join(rules)))
 
         self._html += f"<{tag}"
 
@@ -90,10 +102,7 @@ def get_mail_content():
     html_content = md.convert(md_content)
     meta = get_meta(md.Meta)
 
-    styles_rules = get_style_rules()
-    styled_content = apply_css_rules(html_content, styles_rules)
-
-    return styled_content, meta
+    return html_content, meta
 
 
 def get_template():
@@ -134,7 +143,10 @@ def get_mail_html (config):
     mail_base = mail_template.format(content = mail_content)
     mail_html = mail_base.format(**template_data)
 
-    return mail_html, meta
+    styles_rules = get_style_rules()
+    styled_html = apply_css_rules(mail_html, styles_rules)
+
+    return styled_html, meta
 
 
 class InnerText_Parser(HTMLParser):
