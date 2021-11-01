@@ -1,4 +1,4 @@
-name:    PyNews 📰
+name:    PyNews
 subject: News of the week
 
 # **Lorem ipsum dolor sit amet**
