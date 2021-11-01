@@ -1,10 +1,10 @@
 import os
 import re
+import sys
 from base64 import urlsafe_b64encode
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from sys import argv
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -20,29 +20,30 @@ SCOPES = [
 ]
 
 
-def atuth(scopes):
+def get_credentials():
     credentials = None
-    if os.path.exists('token.json'):
-            credentials = Credentials.from_authorized_user_file('token.json', scopes)
+
+    if os.path.exists("token.json"):
+        credentials = Credentials.from_authorized_user_file("token.json", SCOPES)
 
     if not credentials or not credentials.valid:
-            if credentials and credentials.expired and credentials.refresh_token:
-                    credentials.refresh(Request())
-            else:
-                    flow = InstalledAppFlow.from_client_secrets_file('credentials.json', scopes)
-                    credentials = flow.run_local_server(port=0)
+        if credentials and credentials.expired and credentials.refresh_token:
+            credentials.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
+            credentials = flow.run_local_server(port=0)
 
-            with open('token.json', 'w') as token:
-                    token.write(credentials.to_json())
+        with open("token.json", "w") as token:
+            token.write(credentials.to_json())
 
     return credentials
 
 
-def get_table(values):
-    header = [h.replace(" ", "_") for h in values["values"][0]]
-    body = values["values"][1:]
+def to_table(values):
+    header = [h.replace(" ", "_") for h in values[0]]
+    body = values[1:]
 
-    return [dict(zip(header, row)) for row in body]
+    return list(dict(zip(header, row)) for row in body)
 
 
 def fetch_subscribers_data(credentials, config):
@@ -55,8 +56,8 @@ def fetch_subscribers_data(credentials, config):
         subs_sheet  = sheets.get(spreadsheetId=sheet_id, range=pages["subscribers"]).execute()
         unsub_sheet = sheets.get(spreadsheetId=sheet_id, range=pages["unsibscribers"]).execute()
 
-    subs = get_table(subs_sheet)
-    unsubs = get_table(unsub_sheet)
+    subs = to_table(subs_sheet["values"])
+    unsubs = to_table(unsub_sheet["values"])
 
     return subs, unsubs
 
@@ -141,26 +142,30 @@ def dispatch_messages(mailing_list, credentials, config, quiet=False):
             index += 1
 
 
-def has_argv(*argvs):
-    return any([a in argv for a in argvs])
+def has_argv(*argv):
+    return any([a in sys.argv for a in argv])
 
 
 if __name__ == "__main__":
     config = get_config()
-    credentials = atuth(SCOPES)
-
     is_test = has_argv("--test", "-t")
 
-    if is_test:
-        mailing_list = [config["test_user"]]
-    else:
-        subscribers, unsubscribers = fetch_subscribers_data(credentials, config)
-        mailing_list = filter_mailing_list(subscribers, unsubscribers, config)
-
-    build_test()
+    build_test(config)
 
     do_send = input("Send? (yes/no) ")
 
     if do_send.lower() in ("y", "yes"):
+        credentials = get_credentials()
+
+        if is_test:
+            mailing_list = [config["test_user"]]
+        else:
+            subscribers, unsubscribers = fetch_subscribers_data(credentials, config)
+            mailing_list = filter_mailing_list(subscribers, unsubscribers, config)
+
         dispatch_messages(mailing_list, credentials, config, is_test)
-        print("Newsletter launched successfully!")
+        
+        if is_test:
+            print("Test launched successfully!")
+        else:
+            print("Newsletter launched successfully!")
