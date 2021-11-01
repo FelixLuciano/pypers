@@ -1,7 +1,7 @@
 name:    PyNews 📰
 subject: News of the week
 
-# **Lorem ipsum dolor sit amet**
+# **Lorem ipsum dolor sit amet, {user_Nome}!**
 
 consectetur adipiscing elit. Cras in massa accumsan tortor auctor facilisis a eget ligula. Sed mollis eleifend mi vel semper. Phasellus congue, orci tristique porta ultricies, elit neque iaculis magna, sed gravida magna mi sit amet magna.
 
@@ -20,7 +20,7 @@ Font: [News](https://example.com).
 **🏛️ POLITICS**
 
 ![example image](https://images.unsplash.com/photo-1495020689067-958852a7765e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2069&q=80)
-_Image: Unspash_
+_Image: Unsplash_
 {: style="text-align: center;" }
 
 Mauris volutpat pulvinar nunc, a mattis ex vehicula ac. Pellentesque molestie erat quis lacus porttitor, quis malesuada elit commodo. Mauris vehicula aliquam ligula at consequat. Sed pharetra dolor urna, posuere congue lorem porta a. In hac habitasse platea dictumst. 
@@ -53,7 +53,7 @@ We always arrive at your inbox around 06:09. **Some email servers are stubborn a
 {: style="text-align: right;" }
 
 {org}, Simple python newsletter project.  
-3477 Av. Brg. Faria Lima, São Paulo - SP, 04538-133
+3477 Av. Brig. Faria Lima, São Paulo - SP, 04538-133
 <br /><br />
 [Unsubscribe](https://example.com) | [Contact us](https://api.whatsapp.com/send?phone=55912345678)
 {: style="text-align: center;" }
