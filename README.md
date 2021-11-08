@@ -24,8 +24,8 @@ The `config.json` (at project root) file contains essential  definitions be for 
   "sheet": {
     "id": "Google Sheet id",
     "pages": {
-      "subscribers": "Subscribers tab name",
-      "unsibscribers": "Unsubscribers tab name"
+      "joins": "Subscribers tab name",
+      "leaves": "Unsubscribers tab name"
     },
     "columns": {
       "date": "Date",

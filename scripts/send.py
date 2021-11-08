@@ -57,13 +57,13 @@ def fetch_subscribers_data(credentials, config):
     with build("sheets", "v4", credentials=credentials) as service:
         sheets = service.spreadsheets().values()
 
-        subs_sheet  = sheets.get(spreadsheetId=sheet_id, range=pages["subscribers"]).execute()
-        unsub_sheet = sheets.get(spreadsheetId=sheet_id, range=pages["unsibscribers"]).execute()
+        joins_sheet  = sheets.get(spreadsheetId=sheet_id, range=pages["joins"]).execute()
+        leaves_sheet = sheets.get(spreadsheetId=sheet_id, range=pages["leaves"]).execute()
 
-    subs = to_table(subs_sheet["values"])
-    unsubs = to_table(unsub_sheet["values"])
+    joins = to_table(joins_sheet["values"])
+    leaves = to_table(leaves_sheet["values"])
 
-    return subs, unsubs
+    return joins, leaves
 
 
 def split_date_iso(date):
@@ -81,32 +81,32 @@ def get_timestamp(object, config):
     return datetime(*split_date_iso(object[date])).timestamp()
 
 
-def filter_mailing_list(subs, unsubs, config):
+def filter_mailing_list(joins, leaves, config):
     mail_key = get_col("mail", config)
     mailing_list = []
 
-    for sub in subs[::-1]:
+    for join in joins[::-1]:
         jump = False
         for contact in mailing_list:
-            if contact[mail_key] == sub[mail_key]:
+            if contact[mail_key] == join[mail_key]:
                 jump = True
                 break
 
         if jump == True:
             continue
 
-        is_subscribed = True
-        for unsub in unsubs[::-1]:
-            if unsub[mail_key] == sub[mail_key]:
-                sub_timestamp = get_timestamp(sub, config)
-                unsub_timestamp = get_timestamp(unsub, config)
+        is_joined = True
+        for leave in leaves[::-1]:
+            if leave[mail_key] == join[mail_key]:
+                join_timestamp = get_timestamp(join, config)
+                leave_timestamp = get_timestamp(leave, config)
 
-                if (unsub_timestamp - sub_timestamp > 0):
-                    is_subscribed = False
+                if (leave_timestamp - join_timestamp > 0):
+                    is_joined = False
                     break
 
-        if is_subscribed:
-            mailing_list.append(sub)
+        if is_joined:
+            mailing_list.append(join)
 
     return mailing_list[::-1]
 
