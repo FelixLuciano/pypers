@@ -4,6 +4,7 @@ import os
 import tempfile
 import webbrowser
 from html.parser import HTMLParser
+from pathlib import Path
 
 import markdown
 
@@ -162,6 +163,11 @@ def preview_output(output, open_preview=True):
     if open_preview:
         print("Opening preview...")
         webbrowser.open(path)
+
+
+def delete_output():
+    Path("build/output.html").unlink()
+    Path("build").rmdir()
 
 
 def build_html(config, save=False, open_preview=True):

@@ -1,10 +1,9 @@
 import time
-from pathlib import Path
 
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
-from build import build_test, get_config
+from build import build_test, get_config, delete_output
 
 
 class ChangeListener(FileSystemEventHandler):
@@ -60,8 +59,7 @@ def watch(config):
         except KeyboardInterrupt:
             pass
     
-    Path("build/output.html").unlink()
-    Path("build").rmdir()
+    delete_output()
 
 
 if __name__ == "__main__":
