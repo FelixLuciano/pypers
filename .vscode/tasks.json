@@ -1,0 +1,59 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "type": "shell",
+  "command": "python3",
+  "windows": {
+    "command": "python"
+  },
+  "tasks": [
+    {
+      "label": "📰 Build",
+      "detail": "Build a test preview and open on browser",
+      "args": ["scripts/build.py"],
+      "presentation": {
+        "reveal": "silent",
+      }
+    },
+    
+    {
+      "label": "👁️ Watch",
+      "detail": "Watch for changes and build instantly",
+      "args": ["scripts/watch.py"],
+      "presentation": {
+        "reveal": "silent",
+        "clear": true,
+        "close": true
+      }
+    },
+    
+    {
+      "label": "🔬 Test",
+      "detail": "Send a testing email",
+      "args": ["scripts/send.py", "--test"],
+      "presentation": {
+        "focus": true,
+        "clear": true,
+        "close": true
+      }
+    },
+    
+    {
+      "label": "🚀 Send",
+      "detail": "Send newsletter",
+      "args": ["scripts/send.py"],
+      "presentation": {
+        "focus": true,
+        "clear": true,
+        "close": true
+      }
+    },
+    
+    {
+      "label": "📦 Install",
+      "detail": "Install dependencies",
+      "command": "pip install -r requirements.txt"
+    }
+  ]
+}
