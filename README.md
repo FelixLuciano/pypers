@@ -5,6 +5,7 @@
 
 ![Page example](assets/page.webp)
 
+
 ## Install dependencies
 
 This project has some dependencies (see [`requirements.txt`](requirements.txt)) that are not included in the standard python library, so it is necessary to install them with the following command:
@@ -13,24 +14,43 @@ This project has some dependencies (see [`requirements.txt`](requirements.txt)) 
 pip install -r requirements.txt
 ```
 
+
 ## Configuration
 
 The `config.json` (at project root) file contains essential  definitions be for sending  and some optional properties for templating. Because this file may contain sensitive information it is ignored, so it needs to be created manually at installation.
 
 ```json
 {
-  "transport": {
-    "mail": "mail@example.com",
-    "smtp": "smtp.gmail.com",
-    "port": 465
+  "sheet": {
+    "id": "Google Sheet id",
+    "pages": {
+      "subscribers": "Subscribers tab name",
+      "unsibscribers": "Unsubscribers tab name"
+    },
+    "columns": {
+      "date": "Date",
+      "mail": "Mail",
+      "name": "Name"
+    }
+  },
+  "test_user": {
+    "Date": "00/00/0000 00:00:00",
+    "Mail": "luciano@mail.com",
+    "Name": "Luciano"
   },
   "props": {
-    "author": "John Doe"
+    "org": "PyNews SA",
+    "author": "Luciano Felix",
   }
 }
+
 ```
 
-To fill the transport configuration, search for [*list of SMTP servers*](https://www.google.com/search?q=List+of+SMTP+servers) and select the one that matches your email.
+
+## Credentials
+
+TO DO.
+
 
 ## Template properties
 
@@ -43,15 +63,6 @@ place: my house
 Mabe by {author} at {place}.
 ```
 
-## Subscribers list
-
-The `subscribers.txt` (at project root) file contains the list of emails from subscribers to your newsletter that will receive in their inboxes when the newsletter is sent. Because this file may contain sensitive information it is ignored, so it needs to be created manually at installation.
-
-```txt
-mail@example.com
-othermail@example.com
-...
-```
 
 ## Build for preview
 
@@ -71,12 +82,27 @@ Running the python file in `scripts/send.py` runs the build process in tandem wi
 $ python scripts/send.py
 > Opening preview...
 > Send? (yes/no) yes
-> E-mail password:
-> Login successfully!
-> Sending 1 of 32...
+> Sending 1 of 32 to username...
 ...
 > Newsletter launched successfully!
 ```
+
+
+## Send newsletter test
+
+TO DO.
+
+```bash
+$ python scripts/send.py --test
+> Opening preview...
+> Send? (yes/no) yes
+> Newsletter launched successfully!
+```
+
+## VS Code tasks
+
+[Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer)
+
 
 ## License
 This project is [MIT licensed](https://github.com/FelixLuciano/PyNews/blob/main/LICENSE).
