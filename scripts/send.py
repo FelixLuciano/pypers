@@ -1,5 +1,7 @@
 import os
+import random
 import re
+import string
 import sys
 from base64 import urlsafe_b64encode
 from datetime import datetime
@@ -18,6 +20,8 @@ SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets.readonly",
     "https://www.googleapis.com/auth/gmail.send"
 ]
+
+CODE_RANGE = 5
 
 
 def get_credentials():
@@ -147,26 +151,46 @@ def has_argv(*argv):
     return any([a in sys.argv for a in argv])
 
 
-if __name__ == "__main__":
-    config = get_config()
+def send_test(credentials, config):
+    mailing_list = [config["test_user"]]
+
+    dispatch_messages(mailing_list, credentials, config, quiet=True)
+    print("Test launched successfully!")
+
+
+def send_newsletter(credentials, config):
+    subscribers, unsubscribers = fetch_subscribers_data(credentials, config)
+    mailing_list = filter_mailing_list(subscribers, unsubscribers, config)
+
+    dispatch_messages(mailing_list, credentials, config)
+    print("Newsletter launched successfully!")
+
+
+def confirm_prompt(prompt):
+    confirm = input(f"{prompt} (yes/no) ").lower()
+
+    return confirm in ("y", "yes")
+
+
+def send(config):
     is_test = has_argv("--test", "-t")
+    credentials = get_credentials()
 
-    build_test(config)
+    if not is_test:
+        build_test(config)
 
-    do_send = input("Send? (yes/no) ")
-
-    if do_send.lower() in ("y", "yes"):
-        credentials = get_credentials()
-
+    if confirm_prompt("Send?"):
         if is_test:
-            mailing_list = [config["test_user"]]
+            send_test(credentials, config)
         else:
-            subscribers, unsubscribers = fetch_subscribers_data(credentials, config)
-            mailing_list = filter_mailing_list(subscribers, unsubscribers, config)
+            code = ''.join(random.choice(string.ascii_letters) for _ in range(CODE_RANGE))
+            typed = input(f"Type \"{code}\": ")
 
-        dispatch_messages(mailing_list, credentials, config, is_test)
-        
-        if is_test:
-            print("Test launched successfully!")
-        else:
-            print("Newsletter launched successfully!")
+            if typed == code:
+                send_newsletter(credentials, config)
+            else:
+                print("Invalid code!")
+
+
+if __name__ == "__main__":
+    send(get_config())
