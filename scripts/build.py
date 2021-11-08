@@ -184,10 +184,8 @@ def build_test(config, open_preview=True):
     for key, value in config["test_user"].items():
         config["props"][f"user_{key}"] = value
 
-    build_html(config, True, open_preview)
+    return build_html(config, True, open_preview)
 
 
 if __name__ == "__main__":
-    config = get_config()
-    
-    build_test(config)
+    build_test(get_config())
