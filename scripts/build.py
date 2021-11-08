@@ -34,14 +34,14 @@ class StyleRulesParser(HTMLParser):
         self._html = ""
 
     def handle_starttag(self, tag, attrs):
-        rules = []
+        style_rules = []
 
         if tag in self._styles_rules:
-            rules.append(self._styles_rules[tag])
+            style_rules.append(self._styles_rules[tag])
         
         for i, (attr, value) in enumerate(attrs):
             if attr == "style":
-                rules.append(value)
+                style_rules.append(value)
                 del attrs[i]
                 continue
 
@@ -50,12 +50,13 @@ class StyleRulesParser(HTMLParser):
                     selector = "." + classe
 
                     if selector in self._styles_rules:
-                        rules.append(self._styles_rules[selector])
+                        style_rules.append(self._styles_rules[selector])
 
                 del attrs[i]
                 continue
 
-        attrs.append(("style", "".join(rules)))
+        if len(style_rules) > 0:
+            attrs.append(("style", "".join(style_rules)))
 
         self._html += f"<{tag}"
 
@@ -149,21 +150,25 @@ def get_mail_html (config):
     return styled_html, meta
 
 
-def preview_output(output):
-    fd, path = tempfile.mkstemp(suffix=".html")
-    
-    with os.fdopen(fd, "w", encoding="utf-8") as temp:
-        temp.write(output)
+def preview_output(output, open_preview=True):
+    path = os.path.abspath("build/output.html")
 
-    print("Opening preview...")
-    webbrowser.open(path)
+    if not os.path.exists("build"):
+        os.makedirs("build")
+
+    with open(path, "w", encoding="utf-8") as file:
+        file.write(output)
+
+    if open_preview:
+        print("Opening preview...")
+        webbrowser.open(path)
 
 
-def build_html(config, preview=False):
+def build_html(config, save=False, open_preview=True):
     mail_html, meta = get_mail_html(config)
 
-    if preview:
-        preview_output(mail_html)
+    if save:
+        preview_output(mail_html, open_preview)
 
     return mail_html, meta
 
@@ -175,11 +180,11 @@ def get_config():
     return config
 
 
-def build_test(config):
+def build_test(config, open_preview=True):
     for key, value in config["test_user"].items():
         config["props"][f"user_{key}"] = value
 
-    build_html(config, True)
+    build_html(config, True, open_preview)
 
 
 if __name__ == "__main__":
