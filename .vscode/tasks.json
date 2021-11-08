@@ -10,49 +10,62 @@
   "tasks": [
     {
       "label": "📰 Build",
-      "detail": "Build a test preview and open on browser",
-      "args": ["scripts/build.py"],
+      "detail": "Build a test preview and open it in web browser.",
+      "args": [
+        "scripts/build.py"
+      ],
       "presentation": {
-        "reveal": "silent",
+        "reveal": "silent"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
       }
     },
-    
     {
       "label": "👁️ Watch",
-      "detail": "Watch for changes and build instantly",
-      "args": ["scripts/watch.py"],
+      "detail": "Watch for changes and update the test preview instantly.",
+      "args": [
+        "scripts/watch.py"
+      ],
       "presentation": {
         "reveal": "silent",
         "clear": true,
         "close": true
       }
     },
-    
     {
       "label": "🔬 Test",
-      "detail": "Send a testing email",
-      "args": ["scripts/send.py", "--test"],
+      "detail": "Test email sending by sending a test build to the test email.",
+      "args": [
+        "scripts/send.py",
+        "--test"
+      ],
       "presentation": {
         "focus": true,
         "clear": true,
         "close": true
+      },
+      "group": {
+        "kind": "test",
+        "isDefault": true
       }
     },
-    
     {
       "label": "🚀 Send",
-      "detail": "Send newsletter",
-      "args": ["scripts/send.py"],
+      "detail": "Send the Newsletter to all users registered in the Sheets.",
+      "args": [
+        "scripts/send.py"
+      ],
       "presentation": {
         "focus": true,
         "clear": true,
         "close": true
       }
     },
-    
     {
       "label": "📦 Install",
-      "detail": "Install dependencies",
+      "detail": "Install project dependencies.",
       "command": "pip install -r requirements.txt"
     }
   ]
