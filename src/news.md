@@ -1,13 +1,18 @@
 name:    PyNews 📰
 subject: News of the week
 
-# **Lorem ipsum dolor sit amet**
+
+<title>{name} - {subject}</title>
+
+<div class="container" markdown>
+
+# Lorem ipsum dolor sit amet
 
 consectetur adipiscing elit. Cras in massa accumsan tortor auctor facilisis a eget ligula. Sed mollis eleifend mi vel semper. Phasellus congue, orci tristique porta ultricies, elit neque iaculis magna, sed gravida magna mi sit amet magna.
 
 > Sed vitae leo sollicitudin urna tincidunt dictum. Maecenas eget posuere dui. Duis orci felis, vulputate nec fermentum eget, venenatis eu arcu. In aliquet vehicula turpis sed iaculis.
 
-## **Morbi gravida mi ac purus accumsan, non venenatis nisl rutrum**
+## Morbi gravida mi ac purus accumsan, non venenatis nisl rutrum
 **💸 ECONOMICS**
 
 Pellentesque massa nisi, laoreet vitae placerat ac, ultricies eget elit. Sed facilisis, neque a vehicula tempus, diam nibh tincidunt arcu, in mollis purus neque id sem. Aenean sit amet ante tellus. Vivamus consequat nibh quis egestas tristique. Cras commodo nulla sed tellus congue, eu feugiat enim varius.
@@ -16,7 +21,7 @@ Proin nulla arcu, eleifend eget magna et, pulvinar aliquam justo. Vivamus accums
 
 Font: [News](https://example.com).
 
-## **In metus est, sodales sit amet tellus id, fringilla gravida lorem**
+## In metus est, sodales sit amet tellus id, fringilla gravida lorem
 **🏛️ POLITICS**
 
 ![example image](https://images.unsplash.com/photo-1495020689067-958852a7765e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2069&q=80)
@@ -36,7 +41,7 @@ Nulla facilisi. Suspendisse finibus vehicula condimentum.
 
 Font: [News](https://example.com).
 
-## **Curabitur ac ligula facilisis, gravida enim in, eleifend purus**
+## Curabitur ac ligula facilisis, gravida enim in, eleifend purus
 **🌎 CLIMATE**
 
 Quisque imperdiet vel nisi ac tincidunt. Suspendisse felis nibh, finibus vitae luctus quis, cursus nec ligula. Duis venenatis, lectus in pulvinar venenatis, magna massa pulvinar mauris, nec luctus urna magna et sem. Aenean luctus, urna sed eleifend bibendum, augue augue semper augue, non sodales sem ante sed nulla. Vestibulum pellentesque finibus neque, a gravida massa sagittis eu. Praesent fringilla libero sed orci dapibus egestas vehicula vitae leo. Maecenas magna ex, ultricies at aliquam eget, pharetra aliquet arcu. Cras vulputate enim non libero auctor consequat. Suspendisse vulputate interdum sem, a vehicula dui viverra sit amet. Mauris rutrum tincidunt risus eu consequat. Nunc orci ante, eleifend sit amet libero ac, tristique cursus lorem. Cras quis elit nunc.
@@ -57,3 +62,5 @@ We always arrive at your inbox around 06:09. **Some email servers are stubborn a
 <br /><br />
 [Unsubscribe]({unsubscribe_link}{user_e-mail}) | [Contact us](https://api.whatsapp.com/send?phone=55912345678)
 {: style="text-align: center;" }
+
+</div>

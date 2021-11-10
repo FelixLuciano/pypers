@@ -8,7 +8,7 @@ from pathlib import Path
 
 import markdown
 
-MARKDOWN_EXTENSIONS = ["meta", "attr_list"]
+MARKDOWN_EXTENSIONS = ["meta", "md_in_html", "attr_list"]
 
 
 def get_style_rules():
@@ -107,13 +107,6 @@ def get_mail_content():
     return html_content, meta
 
 
-def get_template():
-    with open("src/template.html", "r", encoding="utf-8") as html_file:
-        html_template = html_file.read()
-
-    return html_template
-
-
 def get_date():
     MONTHS = (None, "janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro")
 
@@ -123,7 +116,7 @@ def get_date():
     return day, month, year
 
 
-def get_template_data(config, meta):
+def get_props(config, meta):
     day, month, year = get_date()
 
     template_data = {
@@ -138,12 +131,8 @@ def get_template_data(config, meta):
 
 
 def get_mail_html (config):
-    mail_content, meta = get_mail_content()
-    mail_template = get_template()
-    template_data = get_template_data(config, meta)
-    
-    mail_base = mail_template.format(content = mail_content)
-    mail_html = mail_base.format(**template_data)
+    mail_html, meta = get_mail_content()
+    mail_html = mail_html.format(**get_props(config, meta))
 
     styles_rules = get_style_rules()
     styled_html = apply_css_rules(mail_html, styles_rules)
