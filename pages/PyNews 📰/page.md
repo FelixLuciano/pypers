@@ -56,7 +56,7 @@ We always arrive at your inbox around 06:09. **Some email servers are stubborn a
 ---
 
 !!! right ""
-    *{author}, {day} de {month} de {year}.*
+    *{author}, {day}, {month} of {year}.*
 
 !!! center ""
     PyNews, Simple python newsletter project.  
