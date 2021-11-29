@@ -128,7 +128,7 @@ dmypy.json
 .pyre/
 
 # PyNews files
-config.json
+pages/*/config.json
 pages/*/joins.csv
 pages/*/leaves.csv
 credentials.json

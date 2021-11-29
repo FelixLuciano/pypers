@@ -2,6 +2,7 @@ from markdown import Markdown
 
 from .config import *
 from .style_parser import StyleParser
+from .props import load_props
 
 
 class Page():
@@ -24,6 +25,11 @@ class Page():
             else:
                 meta[key] = value
 
+
+        # Load computed props
+        props = load_props("pages/props.py")
+        props.update(load_props(BASEDIR + "props.py"))
+
         # Apply styles
         styles = StyleParser()
 
@@ -31,15 +37,16 @@ class Page():
         styles.add(BASEDIR + "styles.json")
         styles.feed(page)
 
-        self.page = styles.to_string()
-        self.meta = meta
+        self.page  = styles.to_string()
+        self.meta  = meta
+        self.props = props
 
 
     def get_page(self, props={}):
         try:
             return self.page.format(**{
-                **DATE,
                 **CONFIG["props"],
+                **self.props,
                 **self.meta,
                 **props
             })
