@@ -1,4 +1,3 @@
-import datetime
 import json
 import math
 import os
@@ -13,8 +12,7 @@ IS_TEST = has_argv("--test", "-t")
 
 
 def _select_page():
-    pages = [name for name in os.listdir(
-        "pages") if os.path.isdir(os.path.join("pages", name))]
+    pages = [name for name in os.listdir("pages") if not name.startswith("_") and os.path.isdir(os.path.join("pages", name))]
     pages_len = len(pages)
 
     if pages_len == 1:
@@ -53,17 +51,6 @@ SELFCLOSING_TAGS = ("area", "base", "br", "col", "embed", "hr",
                     "img", "input", "link", "meta", "param", "source", "track", "wbr")
 MATCH_COMMA = re.compile("\s*,\s*")
 MATCH_SPACE = re.compile("\s+")
-
-
-_now = datetime.datetime.now()
-_MONTHS = (None, "January", "February", "March", "April", "May", "June",
-           "July", "August", "September", "October", "November", "December")
-
-DATE = {
-    "day": _now.day,
-    "month": _MONTHS[_now.month],
-    "year": _now.year
-}
 
 
 JOIN_META = False
