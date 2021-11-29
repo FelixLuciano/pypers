@@ -1,5 +1,6 @@
 name:    PyNews 📰
 subject: News of the week
+author:  Luciano Felix
 
 
 <title>{name} - {subject}</title>
@@ -8,7 +9,7 @@ subject: News of the week
 
 # Lorem ipsum dolor sit amet
 
-consectetur adipiscing elit. Cras in massa accumsan tortor auctor facilisis a eget ligula. Sed mollis eleifend mi vel semper. Phasellus congue, orci tristique porta ultricies, elit neque iaculis magna, sed gravida magna mi sit amet magna.
+consecteturaaaa adipiscing elit. Cras in massa accumsan tortor auctor facilisis a eget ligula. Sed mollis eleifend mi vel semper. Phasellus congue, orci tristique porta ultricies, elit neque iaculis magna, sed gravida magna mi sit amet magna.
 
 > Sed vitae leo sollicitudin urna tincidunt dictum. Maecenas eget posuere dui. Duis orci felis, vulputate nec fermentum eget, venenatis eu arcu. In aliquet vehicula turpis sed iaculis.
 
@@ -24,9 +25,9 @@ Font: [News](https://example.com).
 ## In metus est, sodales sit amet tellus id, fringilla gravida lorem
 **🏛️ POLITICS**
 
-![example image](https://images.unsplash.com/photo-1495020689067-958852a7765e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2069&q=80)
-_Image: Unsplash_
-{: style="text-align: center;" }
+!!! center ""
+    ![example image](https://images.unsplash.com/photo-1495020689067-958852a7765e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2069&q=80)
+    *Image: Unsplash*
 
 Mauris volutpat pulvinar nunc, a mattis ex vehicula ac. Pellentesque molestie erat quis lacus porttitor, quis malesuada elit commodo. Mauris vehicula aliquam ligula at consequat. Sed pharetra dolor urna, posuere congue lorem porta a. In hac habitasse platea dictumst. 
 
@@ -48,19 +49,19 @@ Quisque imperdiet vel nisi ac tincidunt. Suspendisse felis nibh, finibus vitae l
 
 Font: [News](https://example.com).
 
-# **To the next, {user_Nome}! 👋**
+# To the next, {Nome}! 👋
 
 We always arrive at your inbox around 06:09. **Some email servers are stubborn and slow… Others are even worse and throw us into spam and/or promotions. Whenever you can't find us in your inbox, look in these two.**
 
 ---
 
-*{author}, {day} de {month} de {year}.*
-{: style="text-align: right;" }
+!!! right ""
+    *{author}, {day} de {month} de {year}.*
 
-{org}, Simple python newsletter project.  
-3477 Av. Brig. Faria Lima, São Paulo - SP, 04538-133
-<br /><br />
-[Unsubscribe]({unsubscribe_link}{user_e-mail}) | [Contact us](https://api.whatsapp.com/send?phone=55912345678)
-{: style="text-align: center;" }
+!!! center ""
+    PyNews, Simple python newsletter project.  
+    3477 Av. Brig. Faria Lima, São Paulo - SP, 04538-133
+    
+    [Unsubscribe]({unsubscribe_link}{Email}) | [Contact us](https://api.whatsapp.com/send?phone=55912345678)
 
 </div>

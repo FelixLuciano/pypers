@@ -15,7 +15,9 @@
         "scripts/build.py"
       ],
       "presentation": {
-        "reveal": "silent"
+        "focus": true,
+        "clear": true,
+        "close": true
       },
       "group": {
         "kind": "build",
@@ -29,7 +31,7 @@
         "scripts/watch.py"
       ],
       "presentation": {
-        "reveal": "silent",
+        "focus": true,
         "clear": true,
         "close": true
       }
@@ -56,6 +58,18 @@
       "detail": "Send the Newsletter to all users registered in the Sheets.",
       "args": [
         "scripts/send.py"
+      ],
+      "presentation": {
+        "focus": true,
+        "clear": true,
+        "close": true
+      }
+    },
+    {
+      "label": "➕ Create",
+      "detail": "Create a new page.",
+      "args": [
+        "scripts/create.py"
       ],
       "presentation": {
         "focus": true,

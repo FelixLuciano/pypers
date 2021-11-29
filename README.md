@@ -15,41 +15,18 @@ pip install -r requirements.txt
 ```
 
 
-## Configuration
-
-The `config.json` (at project root) file contains essential  definitions be for sending  and some optional properties for templating. Because this file may contain sensitive information it is ignored, so it needs to be created manually at installation.
-
-```json
-{
-  "sheet": {
-    "id": "Google Sheet id",
-    "pages": {
-      "joins": "Subscribers tab name",
-      "leaves": "Unsubscribers tab name"
-    },
-    "columns": {
-      "date": "Date",
-      "mail": "Mail",
-      "name": "Name"
-    }
-  },
-  "test_user": {
-    "Date": "00/00/0000 00:00:00",
-    "Mail": "luciano@mail.com",
-    "Name": "Luciano"
-  },
-  "props": {
-    "org": "PyNews SA",
-    "author": "Luciano Felix",
-  }
-}
-
-```
-
-
 ## Credentials
 
 TO DO.
+
+
+## Create a page
+
+TO DO.
+
+```bash
+$ python scripts/create.py
+```
 
 
 ## Template properties
@@ -98,6 +75,16 @@ $ python scripts/send.py --test
 > Send? (yes/no) yes
 > Newsletter launched successfully!
 ```
+
+
+## Watch for canges
+
+TO DO.
+
+```bash
+$ python scripts/watch.py
+```
+
 
 ## VS Code tasks
 

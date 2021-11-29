@@ -1,169 +1,30 @@
-import os
 import random
-import re
 import string
-import sys
-from base64 import urlsafe_b64encode
 from datetime import datetime
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 
-from google.auth.transport.requests import Request
-from google.oauth2.credentials import Credentials
-from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-from build import build_html, build_test, get_config
+from lib.config import *
+from lib.lists import MAILING_LIST
+from lib.mail import Mail
+from lib.page import Page
+from lib.services import GMAIL_SERVICE
 
 
-SCOPES = [
-    "https://www.googleapis.com/auth/spreadsheets.readonly",
-    "https://www.googleapis.com/auth/gmail.send"
-]
-
-CODE_RANGE = 5
-
-
-def get_credentials():
-    credentials = None
-
-    if os.path.exists("token.json"):
-        credentials = Credentials.from_authorized_user_file("token.json", SCOPES)
-
-    if not credentials or not credentials.valid:
-        if credentials and credentials.expired and credentials.refresh_token:
-            credentials.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file("credentials.json", SCOPES)
-            credentials = flow.run_local_server(port=0)
-
-        with open("token.json", "w") as token:
-            token.write(credentials.to_json())
-
-    return credentials
-
-
-def to_table(values):
-    header = [h.replace(" ", "_") for h in values[0]]
-    body = values[1:]
-
-    return list(dict(zip(header, row)) for row in body)
-
-
-def fetch_subscribers_data(credentials, config):
-    sheet_id = config["sheet"]["id"]
-    pages = config["sheet"]["pages"]
-
-    with build("sheets", "v4", credentials=credentials) as service:
-        sheets = service.spreadsheets().values()
-
-        joins_sheet  = sheets.get(spreadsheetId=sheet_id, range=pages["joins"]).execute()
-        leaves_sheet = sheets.get(spreadsheetId=sheet_id, range=pages["leaves"]).execute()
-
-    joins = to_table(joins_sheet["values"])
-    leaves = to_table(leaves_sheet["values"])
-
-    return joins, leaves
-
-
-def split_date_iso(date):
-    d = [int(a) for a in re.split("\/|\s|:", date)] # DD, MM, YYYY, hh, mm, ss
-
-    return d[2], d[1], d[0], d[3], d[4], d[5] # YYYY, MM, DD, hh, mm, ss
-
-
-def get_col(key, config):
-    return config["sheet"]["columns"][key]
-
-def get_timestamp(object, config):
-    date = get_col(object, "date", config)
-
-    return datetime(*split_date_iso(object[date])).timestamp()
-
-
-def filter_mailing_list(joins, leaves, config):
-    mail_key = get_col("mail", config)
-    mailing_list = []
-
-    for join in joins[::-1]:
-        jump = False
-        for contact in mailing_list:
-            if contact[mail_key] == join[mail_key]:
-                jump = True
-                break
-
-        if jump == True:
-            continue
-
-        is_joined = True
-        for leave in leaves[::-1]:
-            if leave[mail_key] == join[mail_key]:
-                join_timestamp = get_timestamp(join, config)
-                leave_timestamp = get_timestamp(leave, config)
-
-                if (leave_timestamp - join_timestamp > 0):
-                    is_joined = False
-                    break
-
-        if is_joined:
-            mailing_list.append(join)
-
-    return mailing_list[::-1]
-
-
-def build_message(user, config):
-    user_config = dict(config)
-
-    for key, value in user.items():
-        user_config["props"][f"user_{key}"] = value
-
-    mail_html, meta = build_html(user_config)
-
-    message = MIMEMultipart()
-    message["to"] = user[get_col("mail", config)]
-    # message["from"] = f"{meta['name']} <felixluciano.200@gmail.com>"
-    message["subject"] = meta["subject"]
-
-    html_mime = MIMEText(mail_html, "html")
-
-    message.attach(html_mime)
-
-    return {"raw": urlsafe_b64encode(message.as_bytes()).decode()}
-
-
-def dispatch_messages(mailing_list, credentials, config, quiet=False):
-    size = len(mailing_list)
+def dispatch_messages(quiet=False):
+    page = Page()
+    size = len(MAILING_LIST)
     index = 1
 
-    with build("gmail", "v1", credentials=credentials) as service:
-        for user in mailing_list:
-            message = build_message(user, config)
-            username = user[get_col("name", config)]
-            response = service.users().messages().send(userId="me", body=message).execute()
+    with GMAIL_SERVICE as service:
+        for user in MAILING_LIST:
+            message = Mail(page, user)
+            response = service.users().messages().send(userId="me", body=message.get_mail()).execute()
 
             if not quiet:
-                print(f"Sending {index} of {size} to {username}...")
+                print(f"Sending {index} of {size}...")
 
             index += 1
-
-
-def has_argv(*argv):
-    return any([a in sys.argv for a in argv])
-
-
-def send_test(credentials, config):
-    mailing_list = [config["test_user"]]
-
-    dispatch_messages(mailing_list, credentials, config, quiet=True)
-    print("Test launched successfully!")
-
-
-def send_newsletter(credentials, config):
-    subscribers, unsubscribers = fetch_subscribers_data(credentials, config)
-    mailing_list = filter_mailing_list(subscribers, unsubscribers, config)
-
-    dispatch_messages(mailing_list, credentials, config)
-    print("Newsletter launched successfully!")
 
 
 def confirm_prompt(prompt):
@@ -172,25 +33,21 @@ def confirm_prompt(prompt):
     return confirm in ("y", "yes")
 
 
-def send(config):
-    is_test = has_argv("--test", "-t")
-    credentials = get_credentials()
-
-    if not is_test:
-        build_test(config)
-
+def send():
     if confirm_prompt("Send?"):
-        if is_test:
-            send_test(credentials, config)
+        if IS_TEST:
+            dispatch_messages(quiet=True)
+            print("Test launched successfully!")
         else:
-            code = ''.join(random.choice(string.ascii_letters) for _ in range(CODE_RANGE))
+            code = ''.join(random.choice(string.ascii_letters) for _ in range(CAPTHCA_CODE_RANGE))
             typed = input(f"Type \"{code}\": ")
 
-            if typed == code:
-                send_newsletter(credentials, config)
-            else:
+            if not typed == code:
                 print("Invalid code!")
+            else:
+                dispatch_messages()
+                print("Newsletter launched successfully!")
 
 
 if __name__ == "__main__":
-    send(get_config())
+    send()

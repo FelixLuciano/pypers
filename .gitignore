@@ -14,7 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -128,6 +127,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# PyNews files
 config.json
+pages/*/joins.csv
+pages/*/leaves.csv
 credentials.json
 token.json

@@ -16,12 +16,7 @@
     "margin-bottom": "-.5rem"
   },
 
-  "a": {
-    "color": "currentcolor"
-  },
-
   "img": {
-    "max-width": "100%",
     "border-radius": ".4rem"
   },
 
@@ -36,8 +31,16 @@
   },
 
   "hr": {
-    "margin": "2rem 0",
+    "margin": "2rem 5%",
     "border": "none",
     "border-top": "2px solid #EEEEEE"
+  },
+
+  ".center": {
+    "text-align": "center"
+  },
+
+  ".right": {
+    "text-align": "right"
   }
 }
