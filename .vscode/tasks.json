@@ -3,84 +3,115 @@
   // for the documentation about the tasks.json format
   "version": "2.0.0",
   "type": "shell",
-  "command": "python3",
-  "windows": {
-    "command": "python"
-  },
+  "command": "${command:python.interpreterPath}",
   "tasks": [
+    {
+      "label": "📦 Install",
+      "detail": "Install project dependencies.",
+      "command": "pip install -r requirements.txt"
+    },
+    {
+      "label": "📰 Create",
+      "detail": "Create a new page.",
+      "args": [
+        "scripts/create.py",
+        "--dir=${cwd}",
+        "--name=${input:pageName}"
+      ],
+      "presentation": {
+        "reveal": "silent"
+      }
+    },
     {
       "label": "📰 Build",
       "detail": "Build a test preview and open it in web browser.",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
       "args": [
-        "scripts/build.py"
+        "scripts/build.py",
+        "--dir=${relativeFileDirname}",
+        "--separator=${pathSeparator}"
       ],
       "presentation": {
         "focus": true,
         "clear": true,
         "close": true
-      },
-      "group": {
-        "kind": "build",
-        "isDefault": true
       }
     },
     {
       "label": "👁️ Watch",
       "detail": "Watch for changes and update the test preview instantly.",
       "args": [
-        "scripts/watch.py"
+        "scripts/watch.py",
+        "--dir=${relativeFileDirname}",
+        "--separator=${pathSeparator}"
       ],
       "presentation": {
         "focus": true,
         "clear": true,
+        "close": true
+      }
+    },
+    {
+      "label": "📄 output",
+      "detail": "Open output.",
+      "command": "code build/output.html",
+      "presentation": {
+        "reveal": "silent",
+        "close": true
+      }
+    },
+    {
+      "label": "🖨️ Live Preview",
+      "detail": "Open live preview.",
+      "command": "${command:livePreview.start.internalPreview.atFile}",
+      "dependsOn": "output",
+      "presentation": {
+        "reveal": "silent",
         "close": true
       }
     },
     {
       "label": "🔬 Test",
       "detail": "Test email sending by sending a test build to the test email.",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
       "args": [
         "scripts/send.py",
-        "--test"
+        "--test",
+        "--dir=${relativeFileDirname}",
+        "--separator=${pathSeparator}"
       ],
       "presentation": {
         "focus": true,
         "clear": true,
         "close": true
-      },
-      "group": {
-        "kind": "test",
-        "isDefault": true
       }
     },
     {
       "label": "🚀 Send",
       "detail": "Send the Newsletter to all users registered in the Sheets.",
       "args": [
-        "scripts/send.py"
+        "scripts/send.py",
+        "--dir=${relativeFileDirname}",
+        "--separator=${pathSeparator}"
       ],
       "presentation": {
         "focus": true,
         "clear": true,
         "close": true
       }
-    },
+    }
+  ],
+  "inputs": [
     {
-      "label": "➕ Create",
-      "detail": "Create a new page.",
-      "args": [
-        "scripts/create.py"
-      ],
-      "presentation": {
-        "focus": true,
-        "clear": true,
-        "close": true
-      }
-    },
-    {
-      "label": "📦 Install",
-      "detail": "Install project dependencies.",
-      "command": "pip install -r requirements.txt"
+      "id": "pageName",
+      "type": "promptString",
+      "description": "Page name"
     }
   ]
 }

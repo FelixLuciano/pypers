@@ -1,14 +1,20 @@
+import argparse
 import json
 import math
 import os
 import re
-import sys
 
 
-def has_argv(*argv):
-    return any([a in sys.argv for a in argv])
+parser = argparse.ArgumentParser(description='Pynews')
 
-IS_TEST = has_argv("--test", "-t")
+parser.add_argument("--test", type=bool, default=False)
+parser.add_argument("--dir")
+parser.add_argument("--separator")
+
+ARGS = parser.parse_args()
+
+
+IS_TEST = ARGS.test
 
 
 def _select_page():
@@ -17,6 +23,10 @@ def _select_page():
 
     if pages_len == 1:
         return f"pages/{pages[0]}/"
+    else:
+        if ARGS.dir and ARGS.dir.startswith("pages" + ARGS.separator):
+            return ARGS.dir + ARGS.separator
+
 
     pad = math.ceil(math.log10(len(pages)))
 
@@ -38,7 +48,7 @@ def _select_page():
     return f"pages/{page}/"
 
 BASEDIR = _select_page()
-
+    
 
 with open(BASEDIR + "config.json", "r", encoding="utf-8") as config_file:
     CONFIG = json.load(config_file)
