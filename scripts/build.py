@@ -20,9 +20,16 @@ def save_output(output, open_preview=True):
         webbrowser.open(path)
 
 
-def delete_output():
-    Path("build/output.html").unlink()
-    Path("build").rmdir()
+def delete_output(folder="build"):
+    for dirname in os.listdir(folder):
+        path = os.path.join(folder, dirname)
+
+        if os.path.isdir(path):
+            delete_output(path)
+        else:
+            Path(path).unlink()
+
+    Path(folder).rmdir()
 
 
 def build(open_preview=True, props={}):

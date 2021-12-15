@@ -43,13 +43,20 @@ class Page():
 
 
     def get_page(self, props={}):
-        try:
-            return self.page.format(**{
-                **CONFIG["props"],
-                **self.props,
-                **self.meta,
-                **props
-            })
+        props = {
+            **CONFIG["props"],
+            **self.props,
+            **self.meta,
+            **props
+        }
 
+        if "update" in self.props:
+            updated = self.props["update"](props.copy())
+
+            if updated is not None:
+                props.update(updated)
+
+        try:
+            return self.page.format(**props)
         except IndexError as error:
             raise Exception("Something went wrong while building!")
