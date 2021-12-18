@@ -55,7 +55,7 @@
       }
     },
     {
-      "label": "8. 📄 Show output",
+      "label": "5. 📄 Show output",
       "detail": "Open output.",
       "command": "code build/output.html",
       "presentation": {
@@ -64,7 +64,7 @@
       }
     },
     {
-      "label": "5. 🖨️ Live Preview",
+      "label": "6. 🖨️ Live Preview",
       "detail": "Open live preview.",
       "command": "${command:livePreview.start.internalPreview.atFile}",
       "dependsOn": "output",
@@ -74,7 +74,7 @@
       }
     },
     {
-      "label": "6. 🔬 Send test",
+      "label": "7. 🔬 Send test",
       "detail": "Test email sending by sending a test build to the test email.",
       "args": [
         "scripts/send.py",
@@ -89,7 +89,7 @@
       }
     },
     {
-      "label": "7. 🚀 Send",
+      "label": "8. 🚀 Send",
       "detail": "Send the Newsletter to all users registered in the Sheets.",
       "args": [
         "scripts/send.py",
