@@ -6,12 +6,12 @@
   "command": "${command:python.interpreterPath}",
   "tasks": [
     {
-      "label": "📦 Install",
+      "label": "1. 📦 Install dependencies",
       "detail": "Install project dependencies.",
       "command": "pip install -r requirements.txt"
     },
     {
-      "label": "➕ Create",
+      "label": "2. ➕ Create page",
       "detail": "Create a new page.",
       "args": [
         "scripts/create.py",
@@ -23,7 +23,7 @@
       }
     },
     {
-      "label": "📰 Build",
+      "label": "3. 📰 Build page",
       "detail": "Build a test preview and open it in web browser.",
       "group": {
         "kind": "build",
@@ -41,7 +41,7 @@
       }
     },
     {
-      "label": "👁️ Watch",
+      "label": "4. 👁️ Watch",
       "detail": "Watch for changes and update the test preview instantly.",
       "args": [
         "scripts/watch.py",
@@ -55,7 +55,7 @@
       }
     },
     {
-      "label": "📄 output",
+      "label": "8. 📄 Show output",
       "detail": "Open output.",
       "command": "code build/output.html",
       "presentation": {
@@ -64,7 +64,7 @@
       }
     },
     {
-      "label": "🖨️ Live Preview",
+      "label": "5. 🖨️ Live Preview",
       "detail": "Open live preview.",
       "command": "${command:livePreview.start.internalPreview.atFile}",
       "dependsOn": "output",
@@ -74,12 +74,8 @@
       }
     },
     {
-      "label": "🔬 Test",
+      "label": "6. 🔬 Send test",
       "detail": "Test email sending by sending a test build to the test email.",
-      "group": {
-        "kind": "test",
-        "isDefault": true
-      },
       "args": [
         "scripts/send.py",
         "--test",
@@ -93,7 +89,7 @@
       }
     },
     {
-      "label": "🚀 Send",
+      "label": "7. 🚀 Send",
       "detail": "Send the Newsletter to all users registered in the Sheets.",
       "args": [
         "scripts/send.py",
