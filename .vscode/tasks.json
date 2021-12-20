@@ -78,7 +78,7 @@
       "detail": "Test email sending by sending a test build to the test email.",
       "args": [
         "scripts/send.py",
-        "--test",
+        "--test=true",
         "--dir=${relativeFileDirname}",
         "--separator=${pathSeparator}"
       ],
