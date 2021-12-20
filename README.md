@@ -11,7 +11,7 @@
 
 This project is a workspace for VS Code, and has set of Tasks that are part of the workflow. So when you open the folder you will see recommendations for extensions that should be installed to make the most of what this project has to offer. One of the extensions shows these tasks in an easy-to-access panel.
 
-![Tasks](assets/tasks.png)
+![Tasks](assets/tasks.webp)
 
 [See more about Task Explorer](https://marketplace.visualstudio.com/items?itemName=spmeesseman.vscode-taskexplorer).
 
@@ -79,7 +79,7 @@ $ python scripts/watch.py
 
 With another of the recommended extensions for this project, it is possible to display a live preview integrated with vs code. For this do this run the `5. 📄 Show output` task and then the `6. 🖨️ Live Preview` task.
 
-![Live preview](assets/live_preview.png)
+![Live preview](assets/live_preview.webp)
 
 
 ## Send newsletter test
