@@ -24,7 +24,11 @@ if not CREDENTIALS or not CREDENTIALS.valid:
         token.write(CREDENTIALS.to_json())
 
 
-SHEETS_SERVICE = build("sheets", "v4", credentials=CREDENTIALS)
+SHEETS_SERVICE = build(serviceName="sheets", version="v4", credentials=CREDENTIALS)
 
 
-GMAIL_SERVICE = build("gmail", "v1", credentials=CREDENTIALS)
+GMAIL_SERVICE = build(serviceName="gmail", version="v1", credentials=CREDENTIALS)
+
+
+_AUTH_SERVICE = build(serviceName='oauth2', version='v2', credentials=CREDENTIALS)
+USER_INFO = _AUTH_SERVICE.userinfo().get().execute()

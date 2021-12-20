@@ -3,6 +3,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 from .config import *
+from .services import USER_INFO
 
 
 class Mail(MIMEMultipart):
@@ -13,7 +14,7 @@ class Mail(MIMEMultipart):
         page_mime = MIMEText(user_page, "html")
 
         self["to"] = user_props["Email"]
-        self["From"] = f"\"{page.meta['name']}\" <felixluciano.200@gmail.com>"
+        self["From"] = f"\"{page.meta['name']}\" <{USER_INFO['email']}>"
         self["subject"] = page.meta["subject"]
 
         self.attach(page_mime)
