@@ -54,7 +54,7 @@ with open(BASEDIR + "config.json", "r", encoding="utf-8") as config_file:
     CONFIG = json.load(config_file)
 
 
-MARKDOWN_EXTENSIONS = ["meta", "md_in_html", "attr_list", "admonition"]
+MARKDOWN_EXTENSIONS = ["meta", "md_in_html", "attr_list", "tables", "admonition"]
 
 
 SELFCLOSING_TAGS = ("area", "base", "br", "col", "embed", "hr",
