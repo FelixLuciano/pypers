@@ -5,5 +5,9 @@
 
   "img": {
     "max-width": "100%"
+  },
+
+  ".emoji": {
+    "font-weight": "normal"
   }
 }

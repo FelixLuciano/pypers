@@ -1,9 +1,12 @@
+import re
+
 from markdown import Markdown
 
 from .config import *
-from .style_parser import StyleParser
 from .props import load_props
+from .style_parser import StyleParser
 
+MATCH_EMOJI = r"[\u263a-\U0001f645]+"
 
 class Page():
     def __init__(self):
@@ -14,6 +17,9 @@ class Page():
         with open(self.filename, "r", encoding="utf-8") as md_file:
             page_md = md_file.read()
         page = md.convert(page_md)
+
+        # Wrap emojis
+        page = re.sub(MATCH_EMOJI, "<span class=\"emoji\">\\g<0></span>", page, 0, re.MULTILINE)
 
         # Extract metadata
         meta = {}
