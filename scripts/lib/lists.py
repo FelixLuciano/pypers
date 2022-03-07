@@ -53,12 +53,12 @@ def filter_mailing_list(joins, leaves):
 
 
 def load_from_file():
-    with open(BASEDIR + "joins.csv") as joins_file:
+    with open(BASEDIR + "joins.csv", encoding="utf-8") as joins_file:
         joins_list = csv.reader(joins_file, delimiter=";", quotechar='"')
         joins = to_table(list(joins_list))
 
     if os.path.exists(BASEDIR + "leaves.csv"):
-        with open(BASEDIR + "leaves.csv") as leaves_file:
+        with open(BASEDIR + "leaves.csv", encoding="utf-8") as leaves_file:
             leaves_list = csv.reader(leaves_file, delimiter=";", quotechar='"')
             leaves = to_table(list(leaves_list))
 
