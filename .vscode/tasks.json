@@ -1,113 +1,28 @@
 {
-  // See https://go.microsoft.com/fwlink/?LinkId=733558
-  // for the documentation about the tasks.json format
   "version": "2.0.0",
   "type": "shell",
   "command": "${command:python.interpreterPath}",
-  "tasks": [
-    {
-      "label": "1. 📦 Install dependencies",
-      "detail": "Install project dependencies.",
-      "command": "pip install -r requirements.txt"
-    },
-    {
-      "label": "2. ➕ Create page",
-      "detail": "Create a new page.",
-      "args": [
-        "scripts/create.py",
-        "--dir=${cwd}",
-        "--name=${input:pageName}"
-      ],
-      "presentation": {
-        "reveal": "silent"
-      }
-    },
-    {
-      "label": "3. 📰 Build page",
-      "detail": "Build a test preview and open it in web browser.",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      },
-      "args": [
-        "scripts/build.py",
-        "--dir=${relativeFileDirname}",
-        "--separator=${pathSeparator}"
-      ],
-      "presentation": {
-        "focus": true,
-        "clear": true,
-        "close": true
-      }
-    },
-    {
-      "label": "4. 👁️ Watch",
-      "detail": "Watch for changes and update the test preview instantly.",
-      "args": [
-        "scripts/watch.py",
-        "--dir=${relativeFileDirname}",
-        "--separator=${pathSeparator}"
-      ],
-      "presentation": {
-        "focus": true,
-        "clear": true,
-        "close": true
-      }
-    },
-    {
-      "label": "5. 📄 Show output",
-      "detail": "Open output.",
-      "command": "code build/output.html",
-      "presentation": {
-        "reveal": "silent",
-        "close": true
-      }
-    },
-    {
-      "label": "6. 🖨️ Live Preview",
-      "detail": "Open live preview.",
-      "command": "${command:livePreview.start.internalPreview.atFile}",
-      "dependsOn": "output",
-      "presentation": {
-        "reveal": "silent",
-        "close": true
-      }
-    },
-    {
-      "label": "7. 🔬 Send test",
-      "detail": "Test email sending by sending a test build to the test email.",
-      "args": [
-        "scripts/send.py",
-        "--test=true",
-        "--dir=${relativeFileDirname}",
-        "--separator=${pathSeparator}"
-      ],
-      "presentation": {
-        "focus": true,
-        "clear": true,
-        "close": true
-      }
-    },
-    {
-      "label": "8. 🚀 Send",
-      "detail": "Send the Newsletter to all users registered in the Sheets.",
-      "args": [
-        "scripts/send.py",
-        "--dir=${relativeFileDirname}",
-        "--separator=${pathSeparator}"
-      ],
-      "presentation": {
-        "focus": true,
-        "clear": true,
-        "close": true
-      }
-    }
-  ],
   "inputs": [
     {
-      "id": "pageName",
+      "id": "pageLocation",
       "type": "promptString",
-      "description": "Page name"
+      "description": "Page location (folder/.../name)",
+      "default": "New page"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "➕ New page",
+      "detail": "Create a new page.",
+      "args": [
+        "scripts/new.py",
+        "--path=${input:pageLocation}"
+      ],
+      "presentation": {
+        "reveal": "never",
+        "revealProblems": "always",
+        "close": true
+      }
     }
   ]
 }
