@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -19,6 +20,8 @@ def main(args):
 
     with open(output_file, 'w', encoding='utf-8') as page_file:
         json.dump(template, page_file)
+
+    os.system(str(output_file.absolute()))
 
     return 0
 
