@@ -2,6 +2,7 @@ import __main__
 import cssutils
 from bs4 import BeautifulSoup
 from jinja2 import BaseLoader, Environment
+from ipywidgets import Widget
 
 from .Jupyter import Jupyter
 from .Preview import Preview
@@ -20,7 +21,14 @@ class Page:
 
     @staticmethod
     def get_props(user):
-        props = {name: value for name, value in vars(__main__).items() if not name.startswith('_')}
+        props = {}
+
+        for name, value in vars(__main__).items():
+            if name != 'users' and not name.startswith('_'):
+                if isinstance(value, Widget):
+                    props[name] = value.value
+                else:
+                    props[name] = value
 
         props.update(user)
         props.update({key: handler(user) for key, handler in Page.user_props.items()})
@@ -61,6 +69,9 @@ class Page:
         style = cssutils.parseString(source.find('style').text)
 
         Page.apply_styleSheet(style, template)
+
+        for node in template.select('[class]'):
+            del node['class']
 
         return ''.join(map(str, template.children))
 
