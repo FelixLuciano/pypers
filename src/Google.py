@@ -11,7 +11,6 @@ class Google:
     SCOPES = [
         "https://www.googleapis.com/auth/gmail.send",
         "https://www.googleapis.com/auth/userinfo.email",
-        "https://www.googleapis.com/auth/spreadsheets.readonly",
         "openid"
     ]
     credentials = None
@@ -45,20 +44,3 @@ class Google:
         Google.authenticate()
 
         return build(serviceName="gmail", version="v1", credentials=Google.credentials)
-
-
-    class Sheets:
-        @staticmethod
-        def get_service():
-            Google.authenticate()
-
-            return build(serviceName="sheets", version="v4", credentials=Google.credentials)
-
-
-        @staticmethod
-        def fetch_table(spreadsheetId, range_, *args, **kwargs):
-            sheets = Google.Sheets.get_service().spreadsheets().values()
-            response = sheets.get(spreadsheetId=spreadsheetId, range=range_).execute()
-            values = response['values']
-
-            return pd.DataFrame(values[1:], columns=values[0], *args, **kwargs)
