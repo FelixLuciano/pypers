@@ -22,7 +22,12 @@ class Preview:
     @staticmethod
     def display(page):
         users = vars(__main__)['users']
-        mails = users[users.mail_column]
+
+        if hasattr(users, 'name_column'):
+            mails = users[users.name_column] + ' <' + users[users.mail_column] + '>'
+        else:
+            mails = users[users.mail_column]
+
         user_select = widgets.Dropdown(
             options=list(mails),
             description='Preview as:',
