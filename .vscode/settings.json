@@ -1,3 +1,37 @@
 {
-  "jupyter.notebookFileRoot": "${workspaceFolder}"
+  "jupyter.notebookFileRoot": "${workspaceFolder}",
+  "files.exclude": {
+    "**/env": false,
+    "**/scripts": false,
+    "**/src": false,
+    "**/.vscode": false,
+    ".gitignore": false,
+    "requirements.txt": false,
+    "**/__pycache__": true
+  },
+  "taskExplorer.exclude": [
+    "**/.vscode-test/**",
+    "**/bin/**",
+    "**/build/**",
+    "**/CompiledOutput/**",
+    "**/dist/**",
+    "**/doc/**",
+    "**/ext/**",
+    "**/out/**",
+    "**/output/**",
+    "**/packages/**",
+    "**/release/**",
+    "**/releases/**",
+    "**/samples/**",
+    "**/sdks/**",
+    "**/static/**",
+    "**/target/**",
+    "**/test/**",
+    "**/third_party/**",
+    "**/vendor/**",
+    "**/work/**",
+    "**/env/**"
+  ],
+  "taskExplorer.enableNpm": false,
+  "taskExplorer.enablePython": false
 }
