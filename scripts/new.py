@@ -8,8 +8,10 @@ from pathlib import Path
 def main(args):
     output_file = Path(f'pages/{args.path}.ipynb')
 
-    if output_file.is_file():
-        return 'A page with this name already exists!'
+    count = 1
+    while output_file.is_file():
+        output_file = Path(f'pages/{args.path} {count}.ipynb')
+        count += 1
 
     output_file.parent.mkdir(exist_ok=True, parents=True)
 
@@ -20,8 +22,8 @@ def main(args):
 
     with open(output_file, 'w', encoding='utf-8') as page_file:
         json.dump(template, page_file)
-
-    os.system(str(output_file.absolute()))
+    
+    os.system('"' + str(output_file.absolute()) + '"')
 
     return 0
 
@@ -30,7 +32,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
 
     parser.add_argument(
-        '--path',
+        'path',
         default='New page',
         help=f'Specify the location with create a new page (default: New page)'
     )

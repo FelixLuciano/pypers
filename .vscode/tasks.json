@@ -16,7 +16,7 @@
       "detail": "Create a new page.",
       "args": [
         "scripts/new.py",
-        "--path=${input:pageLocation}"
+        "${input:pageLocation}"
       ],
       "presentation": {
         "reveal": "never",
