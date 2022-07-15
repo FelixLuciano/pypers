@@ -1,14 +1,18 @@
 import json
+from pathlib import Path
 
 import __main__
 
 
 class Jupyter:
     @staticmethod
-    def get_ipynb():
-        filename = vars(__main__)['__vsc_ipynb_file__']
+    def get_ipynb_file():
+        return Path(vars(__main__)['__vsc_ipynb_file__'])
 
-        with open(filename, 'r', encoding='utf-8') as file:
+
+    @staticmethod
+    def get_ipynb():
+        with open(Jupyter.get_ipynb_file(), 'r', encoding='utf-8') as file:
             notebook = json.load(file)
 
         return notebook
