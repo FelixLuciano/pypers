@@ -58,7 +58,7 @@ class Page:
                 style.removeProperty(rule_property.name)
                 style.setProperty(rule_property.name, rule_property.value)
 
-            node['style'] = style.cssText.replace('\n', '')
+            node['style'] = style.cssText
 
 
     @staticmethod
