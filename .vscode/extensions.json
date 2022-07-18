@@ -2,6 +2,7 @@
   "recommendations": [
     "ms-python.python",
     "ms-toolsai.jupyter",
-    "spmeesseman.vscode-taskexplorer"
+    "spmeesseman.vscode-taskexplorer",
+    "wholroyd.jinja"
   ]
 }
