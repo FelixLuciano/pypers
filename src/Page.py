@@ -1,8 +1,11 @@
+from os.path import getmtime
+from pathlib import Path
+
 import __main__
 import cssutils
 from bs4 import BeautifulSoup
-from jinja2 import BaseLoader, Environment
 from ipywidgets import Widget
+from jinja2 import BaseLoader, Environment, TemplateNotFound
 
 from .Jupyter import Jupyter
 from .Preview import Preview
@@ -63,6 +66,7 @@ class Page:
 
     @staticmethod
     def get_template():
+        env = Environment(loader=Page.Loader())
         html_source = Jupyter.get_html_source()
         source = BeautifulSoup(html_source, "html.parser")
         template = source.find('template')
@@ -73,17 +77,31 @@ class Page:
         for node in template.select('[class]'):
             del node['class']
 
-        return ''.join(map(str, template.children))
+        template_str = ''.join(map(str, template.children))
+
+        return env.from_string(template_str)
 
 
     @staticmethod
     def render(user):
-        template = Environment(loader=BaseLoader).from_string(Page.get_template())
-        props = Page.get_props(user)
-
-        return template.render(**props)
+        return Page.get_template().render(**Page.get_props(user))
 
 
     @staticmethod
     def preview():
         Preview.display(Page)
+
+
+    class Loader(BaseLoader):
+        def get_source(self, environment, template):
+            filename = Path(Path.cwd(), template)
+
+            if not filename.exists():
+                raise TemplateNotFound(str(filename))
+
+            mtime = getmtime(filename)
+
+            with open(filename) as source_file:
+                source = source_file.read()
+
+            return source, filename, lambda: mtime == getmtime(filename)
