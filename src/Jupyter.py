@@ -24,7 +24,9 @@ class Jupyter:
         source = []
 
         for cell in ipynb['cells']:
-            if cell['source'][0] == '%%script html\n':
+            cell_source = cell['source']
+
+            if len(cell_source) > 1 and cell_source[0] == '%%script html\n':
                 source.extend(cell['source'][1:])
 
         return ''.join(source)
