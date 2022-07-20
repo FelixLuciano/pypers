@@ -9,6 +9,7 @@ from jinja2 import BaseLoader, Environment, TemplateNotFound
 
 from .Jupyter import Jupyter
 from .Preview import Preview
+from .Send import Send
 
 
 class Page:
@@ -90,6 +91,11 @@ class Page:
     @staticmethod
     def preview():
         Preview.display(Page)
+
+
+    @staticmethod
+    def send():
+        return Send.display(Page)
 
 
     class Loader(BaseLoader):
