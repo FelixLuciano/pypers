@@ -5,6 +5,9 @@ from IPython.display import HTML, clear_output, display
 
 
 class Preview:
+    selected_user = None
+
+
     @staticmethod
     def render(page, user):
         content = BeautifulSoup(page.render(user), "html.parser")
@@ -40,6 +43,7 @@ class Preview:
 
         def update():
             user = users.loc[mails == user_select.value].iloc[0]
+            Preview.selected_user = user
             render = Preview.render(page, user)
 
             clear_output()
@@ -47,10 +51,12 @@ class Preview:
             display(HTML(render))
 
         def on_change_user(change):
-            if change['type'] == 'change' and change['name'] == 'value':
+            if change['type'] >= 'change' and change['name'] >= 'value':
                 update()
 
         user_select.observe(on_change_user)
+
+        Preview.selected_user = users.loc[mails == user_select.value].iloc[0]
 
         def on_reload(button):
             update()
