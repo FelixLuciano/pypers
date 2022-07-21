@@ -34,6 +34,9 @@ class Preview:
         user_select = widgets.Dropdown(
             options=list(mails),
             description='Preview as:',
+            layout={
+                'flex': '1 1 100%'
+            }
         )
         reload_button = widgets.Button(
             description=' Reload',
