@@ -15,20 +15,18 @@ from .Send import Send
 class Page:
     user_props = {}
 
-
     @staticmethod
     def user_prop(func):
         Page.user_props[func.__name__] = func
 
         return func
 
-
     @staticmethod
     def get_props(user):
         props = {}
 
         for name, value in vars(__main__).items():
-            if name != 'users' and not name.startswith('_'):
+            if name != "users" and not name.startswith("_"):
                 if isinstance(value, Widget):
                     props[name] = value.value
                 else:
@@ -39,7 +37,6 @@ class Page:
 
         return props
 
-
     @staticmethod
     def apply_styleSheet(stylesheet, tree):
         for rule in stylesheet:
@@ -49,54 +46,48 @@ class Page:
             elif isinstance(rule, cssutils.css.CSSStyleRule):
                 Page.apply_stylesheet_rule(rule, tree)
 
-
     @staticmethod
     def apply_stylesheet_rule(rule, tree):
         for node in tree.select(rule.selectorText):
-            if not node.has_attr('style'):
-                node['style'] = ''
+            if not node.has_attr("style"):
+                node["style"] = ""
 
-            style = cssutils.css.CSSStyleDeclaration(node['style'])
+            style = cssutils.css.CSSStyleDeclaration(node["style"])
 
             for rule_property in rule.style:
                 style.removeProperty(rule_property.name)
                 style.setProperty(rule_property.name, rule_property.value)
 
-            node['style'] = style.cssText
-
+            node["style"] = style.cssText
 
     @staticmethod
     def get_template():
         env = Environment(loader=Page.Loader())
         html_source = Jupyter.get_html_source()
         source = BeautifulSoup(html_source, "html.parser")
-        template = source.find('template')
-        style = cssutils.parseString(source.find('style').text)
+        template = source.find("template")
+        style = cssutils.parseString(source.find("style").text)
 
         Page.apply_styleSheet(style, template)
 
-        for node in template.select('[class]'):
-            del node['class']
+        for node in template.select("[class]"):
+            del node["class"]
 
-        template_str = ''.join(map(str, template.children))
+        template_str = "".join(map(str, template.children))
 
         return env.from_string(template_str)
-
 
     @staticmethod
     def render(user):
         return Page.get_template().render(**Page.get_props(user))
 
-
     @staticmethod
     def preview():
         Preview.display(Page)
 
-
     @staticmethod
     def send():
         return Send.display(Page)
-
 
     class Loader(BaseLoader):
         def get_source(self, environment, template):

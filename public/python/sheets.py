@@ -14,11 +14,10 @@ class Sheets:
 
         return build(serviceName="sheets", version="v4", credentials=google.credentials)
 
-
     @staticmethod
     def fetch_table(spreadsheetId, range_, *args, **kwargs):
         sheets = Sheets.get_service().spreadsheets().values()
         response = sheets.get(spreadsheetId=spreadsheetId, range=range_).execute()
-        values = response['values']
+        values = response["values"]
 
         return pd.DataFrame(values[1:], columns=values[0], *args, **kwargs)
