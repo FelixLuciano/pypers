@@ -9,6 +9,7 @@ from googleapiclient.discovery import build
 class Google:
     SCOPES = [
         "https://www.googleapis.com/auth/gmail.send",
+        'https://www.googleapis.com/auth/gmail.readonly',
         "https://www.googleapis.com/auth/userinfo.email",
         "openid"
     ]
@@ -50,6 +51,13 @@ class Google:
             Google.authenticate()
 
             return build(serviceName="gmail", version="v1", credentials=Google.credentials)
+
+
+        @staticmethod
+        def get_aliases():
+            response = Google.Gmail.get_service().users().settings().sendAs().list(userId='me').execute()
+
+            return [f"{alias['displayName']} <{alias['sendAsEmail']}>" for alias in response['sendAs']]
 
 
         @staticmethod
