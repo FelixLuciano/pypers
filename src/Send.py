@@ -11,14 +11,14 @@ from .Preview import Preview
 
 class Send:
     @staticmethod
-    def get_Mail(page, user, name, to, subject):
+    def get_Mail(page, user, sender, to, subject):
         mail = MIMEMultipart()
 
         page = page.get_template().render(**page.get_props(user))
         page_mime = MIMEText(page, "html")
 
         mail['to'] = to
-        mail['from'] = f"{name} <{Google.userinfo['email']}>"
+        mail['from'] = sender
         mail['subject'] = subject
 
         mail.attach(page_mime)
@@ -37,9 +37,11 @@ class Send:
         else:
             mails = users[users.mail_column]
 
-        from_input = widgets.Text(
-            description='From:',
-            placeholder='mail@example.com',
+        Google.authenticate()
+
+        sender_select = widgets.Dropdown(
+            description='Send as:',
+            options=Google.Gmail.get_aliases(),
             layout={
                 'flex': '1 1 100%'
             }
@@ -115,7 +117,7 @@ class Send:
 
         layout = widgets.VBox([
             widgets.HBox([
-                from_input
+                sender_select
             ]),
             widgets.HBox([
                 subject_input
@@ -126,12 +128,10 @@ class Send:
         def send_test(button):
             test_send_button.disabled = True
 
-            Google.authenticate()
-
             mail = Send.get_Mail(
                 page=page,
                 user=Preview.selected_user,
-                name=from_input.value,
+                sender=sender_select.value,
                 to=test_destination_input.value,
                 subject=subject_input.value
             )
