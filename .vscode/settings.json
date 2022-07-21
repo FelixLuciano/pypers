@@ -33,5 +33,9 @@
     "**/env/**"
   ],
   "taskExplorer.enableNpm": false,
-  "taskExplorer.enablePython": false
+  "taskExplorer.enablePython": false,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true
+  }
 }

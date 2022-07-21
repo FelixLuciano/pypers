@@ -3,6 +3,7 @@
     "ms-python.python",
     "ms-toolsai.jupyter",
     "spmeesseman.vscode-taskexplorer",
-    "wholroyd.jinja"
+    "wholroyd.jinja",
+    "ms-python.black-formatter"
   ]
 }
