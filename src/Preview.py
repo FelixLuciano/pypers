@@ -27,9 +27,9 @@ class Preview:
         users = vars(__main__)["users"]
 
         if hasattr(users, "name_column"):
-            mails = users[users.name_column] + " <" + users[users.mail_column] + ">"
+            mails = users[users.name_column] + " <" + users[users.email_column] + ">"
         else:
-            mails = users[users.mail_column]
+            mails = users[users.email_column]
 
         user_select = widgets.Dropdown(
             options=list(mails), description="Preview as:", layout={"flex": "1 1 100%"}

@@ -32,9 +32,9 @@ class Send:
         users = vars(__main__)["users"]
 
         if hasattr(users, "name_column"):
-            mails = users[users.name_column] + " <" + users[users.mail_column] + ">"
+            mails = users[users.name_column] + " <" + users[users.email_column] + ">"
         else:
-            mails = users[users.mail_column]
+            mails = users[users.email_column]
 
         Google.authenticate()
 
@@ -67,8 +67,7 @@ class Send:
         )
 
         program_picker = widgets.DatePicker(
-            description=" Program", layout={"flex": "1 1 100%"},
-            disabled=True
+            description=" Program", layout={"flex": "1 1 100%"}, disabled=True
         )
 
         send_button = widgets.Button(
@@ -151,7 +150,7 @@ class Send:
                         mail = Send.get_Mail(
                             page=template.render(**page.get_props(user)),
                             sender=sender_select.value,
-                            to=user[users.mail_column],
+                            to=user[users.email_column],
                             subject=subject_input.value,
                         )
 
