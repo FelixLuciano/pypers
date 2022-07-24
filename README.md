@@ -33,7 +33,7 @@ pip install -r requirements.txt
 To create a new page in the project, the `create.py` script generates the necessary files in the page's own folder. So create a new page by runnin the Or run the `➕ Create page` task or with the following command:
 
 ```bash
-$ python scripts/create.py --path folder/example
+$ python src create folder/example
 ```
 
 
