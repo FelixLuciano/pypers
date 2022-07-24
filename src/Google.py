@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -18,9 +18,12 @@ class Google:
 
     @staticmethod
     def authenticate(_is_retry=False):
-        if os.path.exists("token.json"):
+        credentials_file = Path("env", "credentials.json")
+        token_file = Path("env", "token.json")
+
+        if token_file.exists():
             Google.credentials = Credentials.from_authorized_user_file(
-                "token.json", Google.SCOPES
+                str(token_file), Google.SCOPES
             )
 
         if not Google.credentials or not Google.credentials.valid:
@@ -32,16 +35,16 @@ class Google:
                 try:
                     Google.credentials.refresh(Request())
                 except Exception:
-                    os.unlink("token.json")
+                    token_file.unlink()
 
                     if not _is_retry:
                         Google.authenticate(True)
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    "credentials.json", Google.SCOPES
+                    str(credentials_file), Google.SCOPES
                 )
                 Google.credentials = flow.run_local_server(port=0)
-            with open("token.json", "w") as token:
+            with open(token_file, "w") as token:
                 token.write(Google.credentials.to_json())
 
         Google.userinfo = Google.fetch_userinfo()
