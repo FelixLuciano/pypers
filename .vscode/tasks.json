@@ -12,6 +12,20 @@
   ],
   "tasks": [
     {
+      "label": " ",
+      "detail": "Setup (Run once!)",
+      "icon": {
+        "id": "package"
+      },
+      "args": [
+        "src",
+        "setup"
+      ],
+      "presentation": {
+        "close": true
+      }
+    },
+    {
       "label": "New page",
       "detail": "Create a new page.",
       "icon": {
@@ -29,7 +43,7 @@
       }
     },
     {
-      "label": " ",
+      "label": "  ",
       "detail": "Show project source.",
       "icon": {
         "id": "unlock"
@@ -46,7 +60,7 @@
       }
     },
     {
-      "label": "  ",
+      "label": "   ",
       "detail": "Hide project source.",
       "icon": {
         "id": "lock"

@@ -4,7 +4,13 @@ from pathlib import Path
 
 
 def main(args):
-    if args.action == "create":
+    if args.action == "setup":
+        import subprocess
+        import venv
+
+        venv.create("env", with_pip=True)
+        subprocess.run([Path("env", "Scripts", "pip"), "-r", "requirements.txt"])
+    elif args.action == "create":
         from os import startfile
 
         from Create import Create
@@ -28,6 +34,7 @@ def main(args):
 def parse_arguments():
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers(dest="action")
+    source = subparser.add_parser("setup")
     source = subparser.add_parser("source")
     create = subparser.add_parser("create")
 
