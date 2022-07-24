@@ -26,23 +26,6 @@
       }
     },
     {
-      "label": "New page",
-      "detail": "Create a new page.",
-      "icon": {
-        "id": "file-add"
-      },
-      "args": [
-        "src",
-        "create",
-        "${input:pageLocation}"
-      ],
-      "presentation": {
-        "reveal": "never",
-        "revealProblems": "always",
-        "close": true
-      }
-    },
-    {
       "label": "  ",
       "detail": "Show project source.",
       "icon": {
@@ -77,6 +60,23 @@
       },
       "runOptions": {
         "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "New page",
+      "detail": "Create a new page.",
+      "icon": {
+        "id": "file-add"
+      },
+      "args": [
+        "src",
+        "create",
+        "${input:pageLocation}"
+      ],
+      "presentation": {
+        "reveal": "never",
+        "revealProblems": "always",
+        "close": true
       }
     }
   ]
