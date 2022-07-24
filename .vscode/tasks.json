@@ -12,7 +12,7 @@
   ],
   "tasks": [
     {
-      "label": "➕ New page",
+      "label": "📄 New page",
       "detail": "Create a new page.",
       "args": [
         "src",
