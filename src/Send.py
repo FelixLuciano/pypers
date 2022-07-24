@@ -7,7 +7,7 @@ from email.mime.text import MIMEText
 
 import __main__
 import ipywidgets as widgets
-from IPython.display import display
+from IPython.display import Image, display
 
 from .Google import Google
 from .Preview import Preview
@@ -38,6 +38,11 @@ class Send:
 
         Google.authenticate()
 
+        user_picture = widgets.Output()
+
+        with user_picture:
+            display(Image(url=Google.userinfo["picture"]))
+
         sender_select = widgets.Dropdown(
             description="Send as:",
             options=Google.Gmail.get_aliases(),
@@ -54,7 +59,7 @@ class Send:
             layout={"flex": "1 1 100%"},
         )
         test_send_button = widgets.Button(
-            description=" Send", button_style="info", icon="paper-plane"
+            description=" Send test", button_style="info", icon="paper-plane"
         )
 
         test_tab = widgets.HBox([test_destination_input, test_send_button])
@@ -71,7 +76,7 @@ class Send:
         )
 
         send_button = widgets.Button(
-            description=" Send", button_style="warning", icon="rocket"
+            description=" Send all", button_style="warning", icon="rocket"
         )
 
         output = widgets.Output(layout={"flex": "1 1 100%"})
@@ -90,11 +95,17 @@ class Send:
         tabs.set_title(0, "Send test")
         tabs.set_title(1, "Dispatch")
 
-        layout = widgets.VBox(
+        layout = widgets.HBox(
             [
-                widgets.HBox([sender_select]),
-                widgets.HBox([subject_input]),
-                tabs,
+                user_picture,
+                widgets.VBox(
+                    [
+                        widgets.HBox([sender_select]),
+                        widgets.HBox([subject_input]),
+                        tabs,
+                    ],
+                    layout={"flex": "1 1 100%", "padding": "0 0 0 16px"},
+                ),
             ]
         )
 
