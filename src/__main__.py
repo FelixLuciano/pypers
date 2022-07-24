@@ -14,13 +14,34 @@ def main(args):
         new_page.create_file()
         startfile(new_page.filename)
 
+    elif args.action == "source":
+        from Workspace import Workspace
+
+        if args.show and not args.hide:
+            Workspace.show_source(True)
+        elif not args.show and args.hide:
+            Workspace.show_source(False)
+
     return 0
 
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers(dest="action")
+    source = subparser.add_parser("source")
     create = subparser.add_parser("create")
+
+    source.add_argument(
+        "--show",
+        action="store_true",
+        help=f"Show project source",
+    )
+
+    source.add_argument(
+        "--hide",
+        action="store_true",
+        help=f"Hide project source",
+    )
 
     create.add_argument(
         "dest",

@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from ipywidgets import Widget
 from jinja2 import BaseLoader, Environment, TemplateNotFound
 
-from .Jupyter import Jupyter
+from .Workspace import Workspace
 from .Preview import Preview
 from .Send import Send
 
@@ -63,7 +63,7 @@ class Page:
     @staticmethod
     def get_template():
         env = Environment(loader=Page.Loader())
-        html_source = Jupyter.get_html_source()
+        html_source = Workspace.get_html_source()
         source = BeautifulSoup(html_source, "html.parser")
         template = source.find("template")
         style = cssutils.parseString(source.find("style").text)
