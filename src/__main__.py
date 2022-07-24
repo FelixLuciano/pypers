@@ -5,11 +5,14 @@ from pathlib import Path
 
 def main(args):
     if args.action == "create":
+        from os import startfile
+
         from Create import Create
 
         new_page = Create(args.dest)
 
         new_page.create_file()
+        startfile(new_page.filename)
 
     return 0
 
