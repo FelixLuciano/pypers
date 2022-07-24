@@ -48,4 +48,4 @@ class Workspace:
             settings["files.exclude"][key] = not state
 
         with open(".vscode/settings.json", "w") as settings_file:
-            json.dump(settings, settings_file, indent=4)
+            json.dump(settings, settings_file, indent=2)
