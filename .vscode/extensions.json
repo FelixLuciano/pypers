@@ -1,9 +1,9 @@
 {
   "recommendations": [
     "ms-python.python",
+    "ms-python.black-formatter",
     "ms-toolsai.jupyter",
-    "spmeesseman.vscode-taskexplorer",
     "wholroyd.jinja",
-    "ms-python.black-formatter"
+    "actboy168.tasks"
   ]
 }
