@@ -159,5 +159,10 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+# Google API oauth2 client credentials secrets
+#  Sensitive file! It must never be exposed.
 /credentials.json
+
+# Google API authorized user file
+#  Sensitive file! It must never be exposed.
 /token.json
