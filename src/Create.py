@@ -7,7 +7,9 @@ class Create:
     TEMPLATE_FILENAME = Path("public", "template", "New Page.ipynb")
 
     def __init__(self, filename: Path):
-        self.filename = self.BASEDIR.joinpath(filename).with_suffix(".ipynb")
+        self.filename = self.BASEDIR.joinpath(filename).with_suffix(
+            filename.suffix + ".ipynb"
+        )
         self.stem = filename.stem
 
         count = 0
