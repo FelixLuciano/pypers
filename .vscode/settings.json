@@ -1,13 +1,13 @@
 {
   "jupyter.notebookFileRoot": "${workspaceFolder}",
   "files.exclude": {
-    "**/env": false,
-    "**/src": false,
-    "**/.vscode": false,
-    "**/public/image": false,
-    "**/public/template": false,
-    ".gitignore": false,
-    "requirements.txt": false,
+    "**/env": true,
+    "**/src": true,
+    "**/.vscode": true,
+    "**/public/image": true,
+    "**/public/template": true,
+    ".gitignore": true,
+    "requirements.txt": true,
     "**/__pycache__": true
   },
   "[python]": {
