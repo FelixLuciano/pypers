@@ -12,10 +12,17 @@
   ],
   "tasks": [
     {
-      "label": " ",
-      "detail": "Setup (Run once!)",
+      "label": "Setup environment",
+      "detail": "Setup project environsment and install dependencies (Run once!)",
       "icon": {
         "id": "package"
+      },
+      "options": {
+        "statusbar": {
+          "label": "$(package)",
+          "backgroundColor": "statusBarItem.warningBackground",
+          "filePattern": "README.md"
+        }
       },
       "args": [
         "src",
@@ -26,10 +33,17 @@
       }
     },
     {
-      "label": "  ",
+      "label": "Show source",
       "detail": "Show project source.",
       "icon": {
         "id": "unlock"
+      },
+      "options": {
+        "statusbar": {
+          "label": "$(unlock)",
+          "backgroundColor": "statusBarItem.warningBackground",
+          "filePattern": "README.md"
+        }
       },
       "args": [
         "src",
@@ -43,10 +57,17 @@
       }
     },
     {
-      "label": "   ",
+      "label": "Hide source",
       "detail": "Hide project source.",
       "icon": {
         "id": "lock"
+      },
+      "options": {
+        "statusbar": {
+          "label": "$(lock)",
+          "backgroundColor": "statusBarItem.warningBackground",
+          "filePattern": "README.md"
+        }
       },
       "args": [
         "src",
@@ -54,8 +75,9 @@
         "--hide"
       ],
       "presentation": {
-        "reveal": "never",
-        "revealProblems": "always",
+        "echo": false,
+        "reveal": "silent",
+        "revealProblems": "onProblem",
         "close": true
       },
       "runOptions": {
@@ -67,6 +89,11 @@
       "detail": "Create a new page.",
       "icon": {
         "id": "file-add"
+      },
+      "options": {
+        "statusbar": {
+          "color": "activityBarBadge.background"
+        }
       },
       "args": [
         "src",
