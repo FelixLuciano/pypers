@@ -15,7 +15,8 @@
       "label": "➕ New page",
       "detail": "Create a new page.",
       "args": [
-        "scripts/new.py",
+        "src",
+        "create",
         "${input:pageLocation}"
       ],
       "presentation": {
