@@ -10,6 +10,7 @@ def main(args):
 
         venv.create("env", with_pip=True)
         subprocess.run([Path("env", "Scripts", "pip"), "-r", "requirements.txt"])
+
     elif args.action == "create":
         from os import startfile
 
