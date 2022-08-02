@@ -32,7 +32,10 @@ class Send:
         users = vars(__main__)["users"]
 
         if hasattr(users, "name_column"):
-            mails = users[users.name_column] + " <" + users[users.email_column] + ">"
+            if isinstance(users.name_column, str):
+                mails = users[users.name_column] + " <" + users[users.email_column] + ">"
+            else:
+                mails = users.loc[:, users.name_column].apply(' - '.join, 1) + " <" + users[users.email_column] + ">"
         else:
             mails = users[users.email_column]
 
