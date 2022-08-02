@@ -1,4 +1,5 @@
 import logging
+import warnings
 
 import cssutils
 
@@ -9,6 +10,8 @@ from .Preview import Preview as preview
 from .Send import Send as send
 from .Workspace import Workspace as workspace
 
+
+warnings.simplefilter(action='ignore')
 
 cssutils.ser.prefs.keepComments = False
 cssutils.ser.prefs.lineSeparator = ""
