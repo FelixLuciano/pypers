@@ -115,6 +115,7 @@ class Send:
         @test_send_button.on_click
         def send_test(button):
             test_send_button.disabled = True
+            test_send_button.button_style = "info"
 
             mail = Send.get_Mail(
                 page=page.render(Preview.selected_user),
@@ -126,6 +127,7 @@ class Send:
             Google.Gmail.send(mail)
 
             test_send_button.disabled = False
+            test_send_button.button_style = "success"
 
         @send_button.on_click
         def send_all(button):
