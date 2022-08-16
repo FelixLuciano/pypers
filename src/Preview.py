@@ -40,8 +40,11 @@ class Preview:
         )
         reload_button = widgets.Button(description=" Reload", icon="rotate-right")
         controls = widgets.HBox([user_select, reload_button])
+        Preview.selected_user = users.loc[mails == user_select.value].iloc[0]
 
         def update():
+            user_select.disabled = True
+            reload_button.disabled = True
             user = users.loc[mails == user_select.value].iloc[0]
             Preview.selected_user = user
             render = Preview.render(page, user)
@@ -50,17 +53,16 @@ class Preview:
             display(controls)
             display(HTML(render))
 
+            user_select.disabled = False
+            reload_button.disabled = False
+
+        @user_select.observe
         def on_change_user(change):
             if change["type"] >= "change" and change["name"] >= "value":
                 update()
 
-        user_select.observe(on_change_user)
-
-        Preview.selected_user = users.loc[mails == user_select.value].iloc[0]
-
+        @reload_button.on_click
         def on_reload(button):
             update()
-
-        reload_button.on_click(on_reload)
 
         update()
