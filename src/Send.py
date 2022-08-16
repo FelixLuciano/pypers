@@ -78,10 +78,11 @@ class Send:
                 widgets.HBox(
                     [
                         widgets.VBox(
-                            layout={"flex": "1 1 100%"},
+                            layout={"width": "88px"},
                         ),
                         test_send_button,
-                    ]
+                    ],
+                    layout={"padding": "16px 0 16px 0"},
                 ),
             ]
         )
@@ -105,10 +106,11 @@ class Send:
                 widgets.HBox(
                     [
                         widgets.VBox(
-                            layout={"flex": "1 1 100%"},
+                            layout={"width": "88px"},
                         ),
                         send_button,
-                    ]
+                    ],
+                    layout={"padding": "16px 0 16px 0"},
                 ),
                 output,
             ],
