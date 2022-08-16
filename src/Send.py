@@ -33,9 +33,16 @@ class Send:
 
         if hasattr(users, "name_column"):
             if isinstance(users.name_column, str):
-                mails = users[users.name_column] + " <" + users[users.email_column] + ">"
+                mails = (
+                    users[users.name_column] + " <" + users[users.email_column] + ">"
+                )
             else:
-                mails = users.loc[:, users.name_column].apply(' - '.join, 1) + " <" + users[users.email_column] + ">"
+                mails = (
+                    users.loc[:, users.name_column].apply(" - ".join, 1)
+                    + " <"
+                    + users[users.email_column]
+                    + ">"
+                )
         else:
             mails = users[users.email_column]
 
@@ -65,17 +72,25 @@ class Send:
             description=" Send test", button_style="info", icon="paper-plane"
         )
 
-        test_tab = widgets.HBox([test_destination_input, test_send_button])
+        test_tab = widgets.VBox(
+            [
+                widgets.HBox([test_destination_input]),
+                widgets.HBox(
+                    [
+                        widgets.VBox(
+                            layout={"flex": "1 1 100%"},
+                        ),
+                        test_send_button,
+                    ]
+                ),
+            ]
+        )
 
         destination_select = widgets.SelectMultiple(
             options=mails,
             description="To:",
             rows=min(len(mails), 10),
             layout={"flex": "1 1 100%"},
-        )
-
-        program_picker = widgets.DatePicker(
-            description=" Program", layout={"flex": "1 1 100%"}, disabled=True
         )
 
         send_button = widgets.Button(
@@ -87,7 +102,14 @@ class Send:
         send_tab = widgets.VBox(
             [
                 widgets.HBox([destination_select]),
-                widgets.HBox([program_picker, send_button]),
+                widgets.HBox(
+                    [
+                        widgets.VBox(
+                            layout={"flex": "1 1 100%"},
+                        ),
+                        send_button,
+                    ]
+                ),
                 output,
             ],
             layout={"width": "99%"},
