@@ -1,9 +1,9 @@
-<h1 align="center">PyNews 📰</h1>
+<h1 align="center">Pypers 📰</h1>
 <p align="center">
-  Simple newsletter made with python
+  Mail templating and sending with Jupyter
 </p>
 <p align="center">
-  <img src="public/image/page.jpg" alt="Page example" />
+  <img src="public/image/example.jpg" alt="Page example" />
 </p>
 
 
@@ -28,14 +28,5 @@ pip install -r requirements.txt
 ```
 
 
-## Create a page
-
-To create a new page in the project, the `create.py` script generates the necessary files in the page's own folder. So create a new page by runnin the Or run the `➕ Create page` task or with the following command:
-
-```bash
-$ python src create folder/example
-```
-
-
 ## License
-This project is [MIT licensed](https://github.com/FelixLuciano/PyNews/blob/main/LICENSE).
+This project is [MIT licensed](https://github.com/FelixLuciano/Pypers/blob/main/LICENSE).
