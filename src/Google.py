@@ -1,3 +1,4 @@
+from functools import cache
 from pathlib import Path
 
 from google.auth.transport.requests import Request
@@ -16,6 +17,7 @@ class Google:
     credentials = None
     userinfo = None
 
+    @cache
     @staticmethod
     def authenticate(_is_retry=False):
         credentials_file = Path("env", "credentials.json")
@@ -49,6 +51,7 @@ class Google:
 
         Google.userinfo = Google.fetch_userinfo()
 
+    @cache
     @staticmethod
     def fetch_userinfo():
         return (
@@ -59,6 +62,7 @@ class Google:
         )
 
     class Gmail:
+        @cache
         @staticmethod
         def get_service():
             Google.authenticate()
@@ -67,6 +71,7 @@ class Google:
                 serviceName="gmail", version="v1", credentials=Google.credentials
             )
 
+        @cache
         @staticmethod
         def get_aliases():
             response = (
