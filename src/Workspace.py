@@ -46,14 +46,3 @@ class Workspace:
                 source.extend(cell["source"][1:])
 
         return "".join(source)
-
-    @staticmethod
-    def show_source(state=True):
-        with open(".vscode/settings.json", "r") as settings_file:
-            settings = json.load(settings_file)
-
-        for key in Workspace.HIDDEN_FILES:
-            settings["files.exclude"][key] = not state
-
-        with open(".vscode/settings.json", "w") as settings_file:
-            json.dump(settings, settings_file, indent=2)
