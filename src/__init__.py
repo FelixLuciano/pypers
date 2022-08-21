@@ -11,6 +11,8 @@ from .Send import Send as send
 from .Workspace import Workspace as workspace
 
 
+workspace.check_vsc_ipynb_file()
+
 warnings.simplefilter(action='ignore')
 
 cssutils.ser.prefs.keepComments = False

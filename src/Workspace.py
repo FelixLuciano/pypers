@@ -1,3 +1,4 @@
+import sys
 import json
 from pathlib import Path
 
@@ -14,6 +15,13 @@ class Workspace:
         ".gitignore",
         "requirements.txt",
     )
+
+    @staticmethod
+    def check_vsc_ipynb_file():
+        scope = vars(__main__)
+
+        if "__vsc_ipynb_file__" not in scope:
+            raise Exception("Pypers only work at VS Code Jupyter!")
 
     @staticmethod
     def get_ipynb_file():
