@@ -9,14 +9,14 @@
 
 ## VS Code workspace
 
-This project is a workspace for VS Code, and has set of Tasks that are part of the workflow. So when you open the folder you will see recommendations for extensions that should be installed to make the most of what this project has to offer. One of the extensions shows these tasks in an easy-to-access panel.
+This project was designed to be used as a Workspace for VS Code. So in addition to containing tools that will help the use, it is essential that Jupyter is used for VS Code for the tool to work!
 
 
-## Credentials
+## Authentication
 
-In order to fetch data from Google Sheets or send the newsletter by Gmail, Google Cloud credentials are required for authentication in this project.
+In order to send the pages by Gmail or fetch data from Google Sheets, Google Cloud credentials are required for authentication in this project.
 
-See the [Getting started with authentication](https://cloud.google.com/docs/authentication/getting-started) for Google Cloud API.
+See the [Getting started with authentication](https://cloud.google.com/docs/authentication/getting-started) for Google Cloud API. Then put your key at `[PROJECT FOLDER]/credentials.json`. and it's ready to use!
 
 
 ## Install dependencies
