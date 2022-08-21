@@ -32,56 +32,6 @@
       }
     },
     {
-      "label": "Show source",
-      "detail": "Show project source.",
-      "icon": {
-        "id": "unlock"
-      },
-      "options": {
-        "statusbar": {
-          "backgroundColor": "statusBarItem.warningBackground",
-          "filePattern": "README.md"
-        }
-      },
-      "args": [
-        "src",
-        "source",
-        "--show"
-      ],
-      "presentation": {
-        "reveal": "never",
-        "revealProblems": "always",
-        "close": true
-      }
-    },
-    {
-      "label": "Hide source",
-      "detail": "Hide project source.",
-      "icon": {
-        "id": "lock"
-      },
-      "options": {
-        "statusbar": {
-          "backgroundColor": "statusBarItem.warningBackground",
-          "filePattern": "README.md"
-        }
-      },
-      "args": [
-        "src",
-        "source",
-        "--hide"
-      ],
-      "presentation": {
-        "echo": false,
-        "reveal": "silent",
-        "revealProblems": "onProblem",
-        "close": true
-      },
-      "runOptions": {
-        "runOn": "folderOpen"
-      }
-    },
-    {
       "label": "New page",
       "detail": "Create a new page.",
       "icon": {

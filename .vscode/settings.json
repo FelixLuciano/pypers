@@ -1,15 +1,5 @@
 {
   "jupyter.notebookFileRoot": "${workspaceFolder}",
-  "files.exclude": {
-    "**/env": true,
-    "**/src": true,
-    "**/.vscode": true,
-    "**/public/image": true,
-    "**/public/template": true,
-    ".gitignore": true,
-    "requirements.txt": true,
-    "**/__pycache__": true
-  },
   "[python]": {
     "editor.defaultFormatter": "ms-python.black-formatter",
     "editor.formatOnSave": true
