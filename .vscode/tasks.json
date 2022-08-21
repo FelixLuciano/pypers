@@ -37,11 +37,6 @@
       "icon": {
         "id": "file-add"
       },
-      "options": {
-        "statusbar": {
-          "color": "activityBarBadge.background"
-        }
-      },
       "args": [
         "src",
         "create",
