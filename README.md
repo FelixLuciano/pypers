@@ -24,7 +24,7 @@ See the [Getting started with authentication](https://cloud.google.com/docs/auth
 This project has some dependencies (see [`requirements.txt`](requirements.txt)) that are not included in the standard python library, so it is necessary to install them runnung the following command:
 
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
 
 
