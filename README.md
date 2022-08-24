@@ -24,7 +24,7 @@ See the [Getting started with authentication](https://cloud.google.com/docs/auth
 This project has some dependencies (see [`requirements.txt`](requirements.txt)) that are not included in the standard python library, so after cloning this template, it is necessary to install them in an environment running the following command:
 
 ```bash
-pip install https://github.com/FelixLuciano/pypers/archive/refs/heads/main.tar.gz
+pip install https://github.com/FelixLuciano/pypers/archive/main.tar.gz
 ```
 
 You can also [download the latest version](https://github.com/FelixLuciano/pypers/archive/main.tar.gz) of the package and install it as a module by following:
