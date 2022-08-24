@@ -27,3 +27,5 @@ class Create:
 
         with open(self.filename, "w", encoding="utf-8") as page_file:
             json.dump(template, page_file)
+
+        print(f"Created {self.filename.absolute()}")
