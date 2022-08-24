@@ -4,17 +4,10 @@ from pathlib import Path
 
 
 def main(args):
-    if args.action == "setup":
-        import subprocess
-        import venv
-
-        venv.create("env", with_pip=True)
-        subprocess.run([Path("env", "Scripts", "pip"), "-r", "requirements.txt"])
-
-    elif args.action == "create":
+    if args.action == "create":
         from os import startfile
 
-        from Create import Create
+        from .Create import Create
 
         new_page = Create(args.dest)
 
@@ -27,7 +20,6 @@ def main(args):
 def parse_arguments():
     parser = argparse.ArgumentParser()
     subparser = parser.add_subparsers(dest="action")
-    setup = subparser.add_parser("setup")
     create = subparser.add_parser("create")
 
     create.add_argument(
