@@ -16,6 +16,7 @@ if __name__ == "__main__":
         author="Luciano Felix",
         packages=["pypers"],
         package_dir={"pypers": "src"},
+        package_data={"pypers": ["data/*"]},
         license="MIT",
         install_requires=parse_requirements("requirements.txt"),
     )
