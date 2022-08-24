@@ -20,8 +20,8 @@ class Google:
     @cache
     @staticmethod
     def authenticate(_is_retry=False):
-        credentials_file = Path("env", "credentials.json")
-        token_file = Path("env", "token.json")
+        credentials_file = Path("credentials.json")
+        token_file = Path("token.json")
 
         if token_file.exists():
             Google.credentials = Credentials.from_authorized_user_file(
