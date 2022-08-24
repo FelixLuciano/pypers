@@ -17,15 +17,13 @@ class Workspace:
     )
 
     @staticmethod
-    def check_vsc_ipynb_file():
+    def get_ipynb_file():
         scope = vars(__main__)
 
         if "__vsc_ipynb_file__" not in scope:
             raise Exception("Pypers only work at VS Code Jupyter!")
 
-    @staticmethod
-    def get_ipynb_file():
-        return Path(vars(__main__)["__vsc_ipynb_file__"])
+        return scope["__vsc_ipynb_file__"]
 
     @staticmethod
     def get_ipynb():
