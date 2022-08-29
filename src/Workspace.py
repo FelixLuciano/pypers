@@ -6,16 +6,6 @@ import __main__
 
 
 class Workspace:
-    HIDDEN_FILES = (
-        "**/env",
-        "**/src",
-        "**/.vscode",
-        "**/public/image",
-        "**/public/template",
-        ".gitignore",
-        "requirements.txt",
-    )
-
     @staticmethod
     def get_ipynb_file():
         scope = vars(__main__)
@@ -41,6 +31,6 @@ class Workspace:
             cell_source = cell["source"]
 
             if len(cell_source) > 1 and cell_source[0] == "%%script html\n":
-                source.extend(cell["source"][1:])
+                source.extend(cell_source[1:])
 
         return "".join(source)
