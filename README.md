@@ -19,18 +19,22 @@ In order to send the pages by Gmail or fetch data from Google Sheets, Google Clo
 See the [Getting started with authentication](https://cloud.google.com/docs/authentication/getting-started) for Google Cloud API. Then put your key at `[PROJECT FOLDER]/credentials.json`. and it's ready to use!
 
 
-## Install dependencies
+## Install
 
-This project has some dependencies (see [`requirements.txt`](requirements.txt)) that are not included in the standard python library, so after cloning this template, it is necessary to install them in an environment running the following command:
+```bash
+pip install https://github.com/FelixLuciano/pypers/archive/refs/tags/1.0.0.tar.gz
+```
+
+You can also [download the latest version](https://github.com/FelixLuciano/pypers/archive/main.tar.gz) (but not recommended) of the package and install it locally. Or directly:
 
 ```bash
 pip install https://github.com/FelixLuciano/pypers/archive/main.tar.gz
 ```
 
-You can also [download the latest version](https://github.com/FelixLuciano/pypers/archive/main.tar.gz) of the package and install it as a module by following:
+## Create a new page
 
 ```bash
-pip install ./path-to/pypers-main.tar.gz
+python -m pypers create [path/to/page]
 ```
 
 
