@@ -12,7 +12,7 @@ if __name__ != "__main__":
     from .Workspace import Workspace as workspace
 
 
-    warnings.simplefilter(action='ignore')
+    warnings.simplefilter(action="ignore")
 
     cssutils.ser.prefs.keepComments = False
     cssutils.ser.prefs.lineSeparator = ""
