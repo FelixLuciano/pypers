@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import ipywidgets as widgets
 from bs4 import BeautifulSoup
 from IPython.display import HTML, clear_output, display
@@ -11,10 +13,9 @@ class Preview:
     @staticmethod
     def render(page, user):
         content = BeautifulSoup(page.render(user), "html.parser")
+        template = Path(__file__).parent.joinpath("data", "preview.html")
 
-        with open(
-            "public/template/preview.html", "r", encoding="utf-8"
-        ) as template_file:
+        with open(template, "r", encoding="utf-8") as template_file:
             template = BeautifulSoup(template_file, "html.parser")
 
         anchor = template.select_one("page-preview")
@@ -29,9 +30,16 @@ class Preview:
 
         if hasattr(users, "name_column"):
             if isinstance(users.name_column, str):
-                mails = users[users.name_column] + " <" + users[users.email_column] + ">"
+                mails = (
+                    users[users.name_column] + " <" + users[users.email_column] + ">"
+                )
             else:
-                mails = users.loc[:, users.name_column].apply(' - '.join, 1) + " <" + users[users.email_column] + ">"
+                mails = (
+                    users.loc[:, users.name_column].apply(" - ".join, 1)
+                    + " <"
+                    + users[users.email_column]
+                    + ">"
+                )
         else:
             mails = users[users.email_column]
 

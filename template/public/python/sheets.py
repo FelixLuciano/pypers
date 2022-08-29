@@ -2,7 +2,7 @@ from functools import cache
 
 import pandas as pd
 from googleapiclient.discovery import build
-from src import google
+from pypers import google
 
 
 google.SCOPES.append("https://www.googleapis.com/auth/spreadsheets.readonly")

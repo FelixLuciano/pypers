@@ -12,35 +12,16 @@
   ],
   "tasks": [
     {
-      "label": "Setup environment",
-      "detail": "Setup project environsment and install dependencies (Run once!)",
-      "icon": {
-        "id": "package"
-      },
-      "options": {
-        "statusbar": {
-          "backgroundColor": "statusBarItem.warningBackground",
-          "filePattern": "README.md"
-        }
-      },
-      "args": [
-        "src",
-        "setup"
-      ],
-      "presentation": {
-        "close": true
-      }
-    },
-    {
       "label": "New page",
       "detail": "Create a new page.",
       "icon": {
         "id": "file-add"
       },
       "args": [
-        "src",
+        "-m",
+        "pypers",
         "create",
-        "${input:pageLocation}"
+        "pages${pathSeparator}${input:pageLocation}"
       ],
       "presentation": {
         "reveal": "never",

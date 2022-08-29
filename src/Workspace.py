@@ -6,26 +6,14 @@ import __main__
 
 
 class Workspace:
-    HIDDEN_FILES = (
-        "**/env",
-        "**/src",
-        "**/.vscode",
-        "**/public/image",
-        "**/public/template",
-        ".gitignore",
-        "requirements.txt",
-    )
-
     @staticmethod
-    def check_vsc_ipynb_file():
+    def get_ipynb_file():
         scope = vars(__main__)
 
         if "__vsc_ipynb_file__" not in scope:
             raise Exception("Pypers only work at VS Code Jupyter!")
 
-    @staticmethod
-    def get_ipynb_file():
-        return Path(vars(__main__)["__vsc_ipynb_file__"])
+        return scope["__vsc_ipynb_file__"]
 
     @staticmethod
     def get_ipynb():
@@ -43,6 +31,6 @@ class Workspace:
             cell_source = cell["source"]
 
             if len(cell_source) > 1 and cell_source[0] == "%%script html\n":
-                source.extend(cell["source"][1:])
+                source.extend(cell_source[1:])
 
         return "".join(source)

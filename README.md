@@ -3,7 +3,7 @@
   Mail templating and sending with Jupyter
 </p>
 <p align="center">
-  <img src="public/image/example.jpg" alt="Page example" />
+  <img src="assets/image/example.jpg" alt="Page example" />
 </p>
 
 
@@ -19,12 +19,22 @@ In order to send the pages by Gmail or fetch data from Google Sheets, Google Clo
 See the [Getting started with authentication](https://cloud.google.com/docs/authentication/getting-started) for Google Cloud API. Then put your key at `[PROJECT FOLDER]/credentials.json`. and it's ready to use!
 
 
-## Install dependencies
-
-This project has some dependencies (see [`requirements.txt`](requirements.txt)) that are not included in the standard python library, so it is necessary to install them runnung the following command:
+## Install
 
 ```bash
-pip install -r requirements.txt
+pip install https://github.com/FelixLuciano/pypers/archive/refs/tags/1.0.0.tar.gz
+```
+
+You can also [download the latest version](https://github.com/FelixLuciano/pypers/archive/main.tar.gz) (but not recommended) of the package and install it locally. Or directly:
+
+```bash
+pip install https://github.com/FelixLuciano/pypers/archive/main.tar.gz
+```
+
+## Create a new page
+
+```bash
+python -m pypers create [path/to/page]
 ```
 
 

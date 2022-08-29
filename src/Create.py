@@ -3,8 +3,8 @@ from pathlib import Path
 
 
 class Create:
-    BASEDIR = Path("pages")
-    TEMPLATE_FILENAME = Path("public", "template", "New Page.ipynb")
+    BASEDIR = Path.cwd()
+    TEMPLATE_FILENAME = Path(__file__).parent.joinpath("data", "New Page.ipynb")
 
     def __init__(self, filename: Path):
         self.filename = self.BASEDIR.joinpath(filename).with_suffix(
@@ -27,3 +27,5 @@ class Create:
 
         with open(self.filename, "w", encoding="utf-8") as page_file:
             json.dump(template, page_file)
+
+        print(f"Created {self.filename.absolute()}")
