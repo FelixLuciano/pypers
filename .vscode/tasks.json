@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "type": "shell",
+  "command": "${command:python.interpreterPath}",
+  "inputs": [
+    {
+      "id": "pageLocation",
+      "type": "promptString",
+      "description": "Page location (folder/.../name)",
+      "default": "New page"
+    }
+  ],
+  "tasks": [
+    {
+      "label": "New page",
+      "detail": "Create a new page.",
+      "icon": {
+        "id": "file-add"
+      },
+      "args": [
+        "-m",
+        "pypers",
+        "create",
+        "pages${pathSeparator}${input:pageLocation}"
+      ],
+      "presentation": {
+        "reveal": "never",
+        "revealProblems": "always",
+        "close": true
+      }
+    }
+  ]
+}

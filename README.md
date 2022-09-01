@@ -1,0 +1,50 @@
+# Pypers starter
+
+Look at the [Pypers repository](https://github.com/FelixLuciano/pypers) to learn more.
+
+## Setup
+
+1. Create environment
+    ```bash
+    # Linux
+    python3 -m venv env
+    ```
+
+    ```ps
+    # Windows
+    python -m venv env
+    ```
+
+1. Activate environment
+    ```bash
+    # Linux
+    ./env/Scripts/activate
+    ```
+
+    ```ps
+    # Windows
+    .\env\Scripts\activate
+    ```
+
+2. Install Pypers
+    ```bash
+    pip install https://github.com/FelixLuciano/pypers/archive/refs/tags/1.0.0.tar.gz
+    ```
+
+3. Get Google Cloud credentials
+
+    In order to send the pages by Gmail or fetch data from Google Sheets, Google Cloud credentials are required for authentication in this project.
+
+    See the [Getting started with authentication](https://cloud.google.com/docs/authentication/getting-started) for Google Cloud API. Then put your key at `[PROJECT FOLDER]/credentials.json`. and it's ready to use!
+
+## Create a new page
+
+```bash
+# Linux
+python3 -m pypers create <path/to/page>
+```
+
+```ps
+# Windows
+python -m pypers create <path/to/page>
+```
