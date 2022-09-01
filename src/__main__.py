@@ -5,14 +5,13 @@ from pathlib import Path
 
 def main(args):
     if args.action == "create":
-        from os import startfile
+        from Page_file import Page_file
 
-        from .Create import Create
+        new_page = Page_file(args.dest)
 
-        new_page = Create(args.dest)
-
-        new_page.create_file()
-        startfile(new_page.filename)
+        new_page.make_from_template()
+        new_page.startfile()
+        print(f"Created {new_page.path.absolute()}")
 
     return 0
 
