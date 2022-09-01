@@ -8,6 +8,7 @@ from ipywidgets import Widget
 from jinja2 import BaseLoader, Environment, TemplateNotFound
 
 from .Workspace import Workspace
+from .Parser import Parser
 from .Preview import Preview
 from .Send import Send
 
@@ -38,44 +39,8 @@ class Page:
         return props
 
     @staticmethod
-    def apply_styleSheet(stylesheet, tree):
-        for rule in stylesheet:
-            if isinstance(rule, cssutils.css.CSSImportRule):
-                Page.apply_styleSheet(rule.styleSheet, tree)
-
-            elif isinstance(rule, cssutils.css.CSSStyleRule):
-                Page.apply_stylesheet_rule(rule, tree)
-
-    @staticmethod
-    def apply_stylesheet_rule(rule, tree):
-        for node in tree.select(rule.selectorText):
-            if not node.has_attr("style"):
-                node["style"] = ""
-
-            style = cssutils.css.CSSStyleDeclaration(node["style"])
-
-            for rule_property in rule.style:
-                style.removeProperty(rule_property.name)
-                style.setProperty(rule_property.name, rule_property.value)
-
-            node["style"] = style.cssText
-
-    @staticmethod
     def get_template():
-        env = Environment(loader=Page.Loader())
-        html_source = Workspace.get_html_source()
-        source = BeautifulSoup(html_source, "html.parser")
-        template = source.find("template")
-        style = cssutils.parseString(source.find("style").text)
-
-        Page.apply_styleSheet(style, template)
-
-        for node in template.select("[class]"):
-            del node["class"]
-
-        template_str = "".join(map(str, template.children))
-
-        return env.from_string(template_str)
+        return Parser.parse(Workspace.get_html_source())
 
     @staticmethod
     def render(user):
