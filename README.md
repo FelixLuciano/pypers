@@ -19,6 +19,11 @@ In order to send the pages by Gmail or fetch data from Google Sheets, Google Clo
 See the [Getting started with authentication](https://cloud.google.com/docs/authentication/getting-started) for Google Cloud API. Then put your key at `[PROJECT FOLDER]/credentials.json`. and it's ready to use!
 
 
+## Template
+
+[Download template](https://github.com/FelixLuciano/pypers/archive/template.zip)
+
+
 ## Install
 
 ```bash
