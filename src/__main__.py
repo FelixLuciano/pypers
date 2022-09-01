@@ -5,7 +5,7 @@ from pathlib import Path
 
 def main(args):
     if args.action == "create":
-        from Page_file import Page_file
+        from .Page_file import Page_file
 
         new_page = Page_file(args.dest)
 
