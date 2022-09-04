@@ -2,6 +2,8 @@ import json
 from os import startfile
 from pathlib import Path
 
+from .Notebook import Notebook
+
 
 class Page_file:
     __TEMPLATE_FILENAME = Path(__file__).parent.joinpath("data", "New Page.ipynb")
@@ -21,10 +23,7 @@ class Page_file:
 
     @staticmethod
     def __get_template_ipynb():
-        with open(
-            Page_file.__TEMPLATE_FILENAME, "r", encoding="utf-8"
-        ) as template_file:
-            return json.load(template_file)
+        return Notebook(Page_file.__TEMPLATE_FILENAME).get_ipynb()
 
     def __format_template_heading_name(self, ipynb: dict):
         ipynb["cells"][0]["source"] = f"# **{self.__name}**"
