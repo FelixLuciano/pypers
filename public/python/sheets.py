@@ -2,19 +2,19 @@ from functools import cache
 
 import pandas as pd
 from googleapiclient.discovery import build
-from pypers import google
+from pypers import Google
 
 
-google.SCOPES.append("https://www.googleapis.com/auth/spreadsheets.readonly")
+Google.SCOPES.append("https://www.googleapis.com/auth/spreadsheets.readonly")
 
 
 class Sheets:
     @cache
     @staticmethod
     def get_service():
-        google.authenticate()
+        Google.authenticate()
 
-        return build(serviceName="sheets", version="v4", credentials=google.credentials)
+        return build(serviceName="sheets", version="v4", credentials=Google.credentials)
 
     @staticmethod
     def fetch_table(spreadsheetId, range_, *args, **kwargs):
