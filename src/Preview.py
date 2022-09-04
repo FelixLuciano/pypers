@@ -5,64 +5,48 @@ from bs4 import BeautifulSoup
 from IPython.display import HTML, clear_output, display
 
 import __main__
+from .Preview_controls import Preview_coltrols
+from .Page import Page
 
 
 class Preview:
-    selected_user = None
+    PREVIEW_TEMPLATE_PATH = Path(__file__).parent.joinpath("data", "Preview_coltrols.html")
 
     @staticmethod
-    def render(page, user):
-        content = BeautifulSoup(page.render(user), "html.parser")
-        template = Path(__file__).parent.joinpath("data", "preview.html")
+    def __get_preview_template():
+        with open(
+            Preview_coltrols.PREVIEW_TEMPLATE_PATH, "r", encoding="utf-8"
+        ) as template_file:
+            return BeautifulSoup(template_file, "html.parser")
 
-        with open(template, "r", encoding="utf-8") as template_file:
-            template = BeautifulSoup(template_file, "html.parser")
-
+    @staticmethod
+    def __wrap_preview_template(content):
+        template = Preview_coltrols.__get_preview_template()
         anchor = template.select_one("page-preview")
+
         anchor.insert_after(content)
         anchor.decompose()
 
         return str(template)
 
     @staticmethod
-    def display(page):
-        users = vars(__main__)["users"]
+    def display():
+        Preview_coltrols.__update_controls()
 
-        if hasattr(users, "name_column"):
-            if isinstance(users.name_column, str):
-                mails = (
-                    users[users.name_column] + " <" + users[users.email_column] + ">"
-                )
-            else:
-                mails = (
-                    users.loc[:, users.name_column].apply(" - ".join, 1)
-                    + " <"
-                    + users[users.email_column]
-                    + ">"
-                )
-        else:
-            mails = users[users.email_column]
-
-        user_select = widgets.Dropdown(
-            options=list(mails), description="Preview as:", layout={"flex": "1 1 100%"}
-        )
-        reload_button = widgets.Button(description=" Reload", icon="rotate-right")
-        controls = widgets.HBox([user_select, reload_button])
-        Preview.selected_user = users.loc[mails == user_select.value].iloc[0]
+        user_select = Preview_coltrols.__get_user_select()
+        reload_button = Preview_coltrols.__get_reload_button()
 
         def update():
-            user_select.disabled = True
-            reload_button.disabled = True
-            user = users.loc[mails == user_select.value].iloc[0]
-            Preview.selected_user = user
-            render = Preview.render(page, user)
+            Preview_coltrols.disable()
+
+            user = Preview_coltrols.get_selected_user()
+            render = Page().render(user)
+            preview = Preview.__wrap_preview_template(render)
 
             clear_output()
-            display(controls)
-            display(HTML(render))
-
-            user_select.disabled = False
-            reload_button.disabled = False
+            Preview_coltrols.display()
+            display(HTML(preview))
+            Preview_coltrols.enable()
 
         @user_select.observe
         def on_change_user(change):
