@@ -1,60 +1,56 @@
+import time
 from pathlib import Path
 
 import ipywidgets as widgets
 from bs4 import BeautifulSoup
-from IPython.display import HTML, clear_output, display
+from IPython.display import HTML, display
 
 import __main__
-from .Preview_controls import Preview_coltrols
+
 from .Page import Page
+from .Preview_controls import Preview_controls
 
 
 class Preview:
-    PREVIEW_TEMPLATE_PATH = Path(__file__).parent.joinpath("data", "Preview_coltrols.html")
+    PREVIEW_TEMPLATE_PATH = Path(__file__).parent.joinpath("data", "preview.html")
 
     @staticmethod
     def __get_preview_template():
         with open(
-            Preview_coltrols.PREVIEW_TEMPLATE_PATH, "r", encoding="utf-8"
+            Preview.PREVIEW_TEMPLATE_PATH, "r", encoding="utf-8"
         ) as template_file:
             return BeautifulSoup(template_file, "html.parser")
 
     @staticmethod
     def __wrap_preview_template(content):
-        template = Preview_coltrols.__get_preview_template()
+        template = Preview.__get_preview_template()
+        content_node = BeautifulSoup(content, "html.parser")
         anchor = template.select_one("page-preview")
 
-        anchor.insert_after(content)
+        anchor.insert_after(content_node)
         anchor.decompose()
 
         return str(template)
 
     @staticmethod
     def display():
-        Preview_coltrols.__update_controls()
+        out = widgets.Output()
 
-        user_select = Preview_coltrols.__get_user_select()
-        reload_button = Preview_coltrols.__get_reload_button()
-
+        @Preview_controls.on_update
         def update():
-            Preview_coltrols.disable()
+            Preview_controls.disable()
 
-            user = Preview_coltrols.get_selected_user()
+            user = Preview_controls.get_selected_user()
             render = Page().render(user)
             preview = Preview.__wrap_preview_template(render)
 
-            clear_output()
-            Preview_coltrols.display()
-            display(HTML(preview))
-            Preview_coltrols.enable()
+            with out:
+                out.clear_output(wait=True)
+                display(HTML(preview))
 
-        @user_select.observe
-        def on_change_user(change):
-            if change["type"] >= "change" and change["name"] >= "value":
-                update()
+            Preview_controls.enable()
 
-        @reload_button.on_click
-        def on_reload(button):
-            update()
-
+        Preview_controls.init()
+        Preview_controls.display()
+        display(out)
         update()
