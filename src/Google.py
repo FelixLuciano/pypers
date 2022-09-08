@@ -8,14 +8,13 @@ from googleapiclient.discovery import build
 
 
 class Google:
-    SCOPES = [
+    __credentials = None
+    __scopes = [
         "https://www.googleapis.com/auth/gmail.send",
         "https://www.googleapis.com/auth/gmail.readonly",
         "https://www.googleapis.com/auth/userinfo.email",
         "openid",
     ]
-    credentials = None
-    userinfo = None
 
     @cache
     @staticmethod
@@ -24,18 +23,18 @@ class Google:
         token_file = Path("token.json")
 
         if token_file.exists():
-            Google.credentials = Credentials.from_authorized_user_file(
-                str(token_file), Google.SCOPES
+            Google.__credentials = Credentials.from_authorized_user_file(
+                str(token_file), Google.__SCOPES
             )
 
-        if not Google.credentials or not Google.credentials.valid:
+        if not Google.__credentials or not Google.__credentials.valid:
             if (
-                Google.credentials
-                and Google.credentials.expired
-                and Google.credentials.refresh_token
+                Google.__credentials
+                and Google.__credentials.expired
+                and Google.__credentials.refresh_token
             ):
                 try:
-                    Google.credentials.refresh(Request())
+                    Google.__credentials.refresh(Request())
                 except Exception:
                     token_file.unlink()
 
@@ -43,19 +42,21 @@ class Google:
                         Google.authenticate(True)
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    str(credentials_file), Google.SCOPES
+                    str(credentials_file), Google.__SCOPES
                 )
-                Google.credentials = flow.run_local_server(port=0)
+                Google.__credentials = flow.run_local_server(port=0)
             with open(token_file, "w") as token:
-                token.write(Google.credentials.to_json())
+                token.write(Google.__credentials.to_json())
 
-        Google.userinfo = Google.fetch_userinfo()
+    @staticmethod
+    def extend_scopes(scopes):
+        Google.__scopes.extend(scopes)
 
     @cache
     @staticmethod
     def fetch_userinfo():
         return (
-            build(serviceName="oauth2", version="v2", credentials=Google.credentials)
+            build(serviceName="oauth2", version="v2", credentials=Google.__credentials)
             .userinfo()
             .get()
             .execute()
@@ -68,7 +69,7 @@ class Google:
             Google.authenticate()
 
             return build(
-                serviceName="gmail", version="v1", credentials=Google.credentials
+                serviceName="gmail", version="v1", credentials=Google.__credentials
             )
 
         @cache
