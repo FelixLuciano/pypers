@@ -1,19 +1,21 @@
 if __name__ != "__main__":
     import logging
     import warnings
+    from typing import Callable
 
     import cssutils
 
-    from .Google import Google as google
-    from .Notebook import Notebook as notebook
-    from .Page import Page as page
-    from .Page_file import Page_file as page_file
-    from .Parser import Parser as parser
-    from .Preview import Preview as preview
-    from .Preview_controls import Preview_controls as preview_controls
-    from .Props import Props as props
-    from .Send import Send as send
-    from .Style import Style as style
+    from .Google import Google
+    from .Notebook import Notebook
+    from .Page import Page
+    from .Page_file import Page_file
+    from .Parser import Parser
+    from .Preview import Preview
+    from .Preview_controls import Preview_controls
+    from .Props import Props
+    from .Send import Send
+    from .Style import Style
+    from .User_prop import User_prop
 
 
     warnings.simplefilter(action="ignore")
@@ -24,8 +26,10 @@ if __name__ != "__main__":
 
     cssutils.log.setLevel(logging.CRITICAL)
 
+    define_user_prop = User_prop.define_decorator
+
     def preview():
-        preview.display()
+        Preview.display()
 
     def send():
-        send.display()
+        Send.display()
