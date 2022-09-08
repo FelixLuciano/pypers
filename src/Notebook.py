@@ -17,9 +17,8 @@ class Notebook:
         with open(self.path, "r", encoding="utf-8") as ipynb:
             return json.load(ipynb)
 
-    @staticmethod
-    def get_html_source():
-        ipynb = Notebook.get_ipynb()
+    def get_html_source(self):
+        ipynb = self.get_ipynb()
         source = []
 
         for cell in ipynb["cells"]:
