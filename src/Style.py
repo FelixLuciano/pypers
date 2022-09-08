@@ -1,5 +1,6 @@
 import cssutils
 
+
 class Style:
     @staticmethod
     def apply_styleSheet(tree, stylesheet):
