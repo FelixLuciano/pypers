@@ -1,16 +1,18 @@
-from pathlib import Path
 import logging
-from datetime import datetime
 from base64 import urlsafe_b64encode
+from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from pathlib import Path
 
-import __main__
 import ipywidgets as widgets
 from IPython.display import Image, display
 
+import __main__
+
 from .Google import Google
 from .Preview import Preview
+from .Send import Send
 
 
 class Send:
