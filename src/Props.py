@@ -1,5 +1,3 @@
-from typing import Callable
-
 import pandas as pd
 from ipywidgets import Widget
 
@@ -10,7 +8,7 @@ from .User_prop import User_prop
 
 class Props:
     @staticmethod
-    def get_props(user: pd.Series):
+    def get_props(user:pd.Series):
         return {
             **Props.__get_scope_static_props(),
             **Props.__get_user_static_props(user),
