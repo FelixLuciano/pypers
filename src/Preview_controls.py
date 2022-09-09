@@ -1,14 +1,10 @@
-from pathlib import Path
 from typing import Callable
 
 import ipywidgets as widgets
-from bs4 import BeautifulSoup
-from bs4.element import Tag
-from IPython.display import HTML, clear_output, display
+import pandas as pd
+from IPython.display import HTML, display
 
 import __main__
-
-from .Page import Page
 
 
 class Preview_controls:
@@ -21,7 +17,7 @@ class Preview_controls:
             Preview_controls.__mount_listeners()
 
     @staticmethod
-    def get_selected_user():
+    def get_selected_user() -> pd.Series:
         users = Preview_controls.__get_users()
         index = Preview_controls.__get_user_select().value
 
@@ -29,6 +25,7 @@ class Preview_controls:
 
     @staticmethod
     def display():
+        Preview_controls.__inject_monotype_font()
         display(Preview_controls.__controls)
 
     @staticmethod
@@ -51,6 +48,10 @@ class Preview_controls:
     def __notify_update():
         for observer in Preview_controls.__observers:
             observer()
+
+    @staticmethod
+    def __inject_monotype_font():
+        display(HTML("<style>.widget-dropdown option {font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;}</style>"))
 
     @staticmethod
     def __update_controls():
@@ -81,7 +82,7 @@ class Preview_controls:
         return ((user, index) for index, user in enumerate(displays))
 
     @staticmethod
-    def __get_users():
+    def __get_users() -> pd.DataFrame:
         return vars(__main__)["users"]
 
     @staticmethod
