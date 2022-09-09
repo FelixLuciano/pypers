@@ -72,7 +72,6 @@ class Preview_controls:
 
         @Preview_controls.__get_reload_button().on_click
         def on_reload(button):
-            print("Button")
             Preview_controls.__notify_update()
 
     @staticmethod
