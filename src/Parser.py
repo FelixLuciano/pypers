@@ -25,8 +25,9 @@ class Parser:
     def __get_styled_template_tree(source):
         templates, stylesheets = Parser.__get_templates_stylesheets(source)
 
-        Style.apply_styleSheet(templates, stylesheets)
-        Parser.__remove_tree_style_declarations(templates)
+        if stylesheets != None:
+            Style.apply_styleSheet(templates, stylesheets)
+            Parser.__remove_tree_class_declarations(templates)
 
         return templates
 
@@ -35,12 +36,17 @@ class Parser:
         node_tree = BeautifulSoup(source, "html.parser")
         template_nodes = node_tree.find("template")
         style_nodes = node_tree.find("style")
-        stylesheets = cssutils.parseString(style_nodes.text)
+        stylesheets = None
+
+        if template_nodes == None:
+            raise Exception("No template cell")
+        elif style_nodes != None:
+            stylesheets = cssutils.parseString(style_nodes.text)
 
         return template_nodes, stylesheets
 
     @staticmethod
-    def __remove_tree_style_declarations(tree):
+    def __remove_tree_class_declarations(tree):
         for node in tree.select("[class]"):
             del node["class"]
 
