@@ -15,6 +15,9 @@ class Google:
         "https://www.googleapis.com/auth/userinfo.email",
         "openid",
     ]
+    @staticmethod
+    def get_credentials():
+        return Google.__credentials
 
     @cache
     @staticmethod
@@ -24,7 +27,7 @@ class Google:
 
         if token_file.exists():
             Google.__credentials = Credentials.from_authorized_user_file(
-                str(token_file), Google.__SCOPES
+                str(token_file), Google.__scopes
             )
 
         if not Google.__credentials or not Google.__credentials.valid:
@@ -36,13 +39,13 @@ class Google:
                 try:
                     Google.__credentials.refresh(Request())
                 except Exception:
-                    token_file.unlink()
-
+                    if token_file.exists():
+                        token_file.unlink()
                     if not _is_retry:
                         Google.authenticate(True)
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    str(credentials_file), Google.__SCOPES
+                    str(credentials_file), Google.__scopes
                 )
                 Google.__credentials = flow.run_local_server(port=0)
             with open(token_file, "w") as token:
@@ -54,7 +57,7 @@ class Google:
 
     @cache
     @staticmethod
-    def fetch_userinfo():
+    def get_userinfo():
         return (
             build(serviceName="oauth2", version="v2", credentials=Google.__credentials)
             .userinfo()
@@ -69,7 +72,7 @@ class Google:
             Google.authenticate()
 
             return build(
-                serviceName="gmail", version="v1", credentials=Google.__credentials
+                serviceName="gmail", version="v1", credentials=Google.get_credentials()
             )
 
         @cache
