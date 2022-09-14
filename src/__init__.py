@@ -14,6 +14,7 @@ if __name__ != "__main__":
     from .Preview_controls import Preview_controls
     from .Props import Props
     from .Send import Send
+    from .Send_controls import Send_controls
     from .Style import Style
     from .User_prop import User_prop
 
