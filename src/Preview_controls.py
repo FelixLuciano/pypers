@@ -19,7 +19,7 @@ class Preview_controls:
     @staticmethod
     def get_selected_user() -> pd.Series:
         users = Preview_controls.__get_users()
-        index = Preview_controls.__get_user_select().value
+        index = Preview_controls.get_user_select().value
 
         return users.iloc[index]
 
@@ -30,12 +30,12 @@ class Preview_controls:
 
     @staticmethod
     def enable():
-        Preview_controls.__get_user_select().disabled = False
+        Preview_controls.get_user_select().disabled = False
         Preview_controls.__get_reload_button().disabled = False
 
     @staticmethod
     def disable():
-        Preview_controls.__get_user_select().disabled = True
+        Preview_controls.get_user_select().disabled = True
         Preview_controls.__get_reload_button().disabled = True
 
     @staticmethod
@@ -51,13 +51,18 @@ class Preview_controls:
 
     @staticmethod
     def __inject_monotype_font():
-        display(HTML("<style>.widget-dropdown option {font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;}</style>"))
+        display(
+            HTML(
+                "<style>.widget-dropdown option {font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;}</style>"
+            )
+        )
 
     @staticmethod
     def __update_controls():
-        users = Preview_controls.__get_users_displays()
         user_select = widgets.Dropdown(
-            options=users, description="Preview as:", layout={"flex": "1 1 100%"}
+            options=Preview_controls.__get_users_displays(),
+            description="Preview as:",
+            layout={"flex": "1 1 100%"},
         )
         reload_button = widgets.Button(description=" Reload", icon="rotate-right")
 
@@ -65,7 +70,7 @@ class Preview_controls:
 
     @staticmethod
     def __mount_listeners():
-        @Preview_controls.__get_user_select().observe
+        @Preview_controls.get_user_select().observe
         def on_change_user(change):
             if change["type"] >= "change" and change["name"] >= "value":
                 Preview_controls.__notify_update()
@@ -78,14 +83,14 @@ class Preview_controls:
     def __get_users_displays():
         displays = Preview_controls.__get_users().to_string(header=False).split("\n")
 
-        return ((user, index) for index, user in enumerate(displays))
+        return [(user, index) for index, user in enumerate(displays)]
 
     @staticmethod
     def __get_users() -> pd.DataFrame:
         return vars(__main__)["users"]
 
     @staticmethod
-    def __get_user_select():
+    def get_user_select():
         return Preview_controls.__controls.children[0]
 
     @staticmethod
