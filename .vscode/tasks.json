@@ -28,6 +28,25 @@
         "revealProblems": "always",
         "close": true
       }
+    },
+    {
+      "label": "Create Environment",
+      "detail": "Create Environment and install dependencies.",
+      "icon": {
+        "id": "package"
+      },
+      "options": {
+        "statusbar": {
+          "backgroundColor": "statusBarItem.warningBackground",
+          "filePattern": "README.md"
+        }
+      },
+      "command": "${command:python.createEnvironment}",
+      "presentation": {
+        "reveal": "never",
+        "revealProblems": "always",
+        "close": true
+      }
     }
   ]
 }

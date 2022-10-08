@@ -1,0 +1,1 @@
+https://github.com/FelixLuciano/pypers/archive/refs/tags/1.0.0.tar.gz
