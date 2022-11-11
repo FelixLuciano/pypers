@@ -6,6 +6,7 @@ import cssutils
 from bs4 import BeautifulSoup
 from ipywidgets import Widget
 from jinja2 import BaseLoader, Environment, TemplateNotFound
+from jinja_markdown import MarkdownExtension
 
 from .Workspace import Workspace
 from .Preview import Preview
@@ -68,6 +69,7 @@ class Page:
         template = source.find("template")
         style = cssutils.parseString(source.find("style").text)
 
+        env.add_extension(MarkdownExtension)
         Page.apply_styleSheet(style, template)
 
         for node in template.select("[class]"):
