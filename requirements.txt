@@ -6,4 +6,4 @@ beautifulsoup4
 cssutils
 pandas
 ipykernel
-ipywidgets
+ipywidgets==7.7.1

@@ -1,7 +1,6 @@
 if __name__ != "__main__":
     import logging
     import warnings
-    from typing import Callable
 
     import cssutils
 

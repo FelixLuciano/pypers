@@ -11,6 +11,7 @@ class Preview_controls:
     __controls = None
     __observers = []
 
+    @staticmethod
     def init():
         if Preview_controls.__controls == None:
             Preview_controls.__update_controls()

@@ -12,7 +12,7 @@ import __main__
 
 from .Google import Google
 from .Preview import Preview
-from .Send import Send
+from .Send_controls import Send_controls
 
 
 class Send:
